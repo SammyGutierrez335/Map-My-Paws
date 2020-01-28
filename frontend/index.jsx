@@ -7,7 +7,7 @@ import ReactDOM from "react-dom";
 // import configureStore from "./store/store"
 document.addEventListener("DOMContentLoaded", () => {
     const root = document.getElementById("root")
-    // const store = configureStore();
+    const store = configureStore();
     ReactDOM.render(<h1>Welcome to Map my Paws</h1>, root)
     // ReactDOM.render(<Root store={store} />, root)
 })

@@ -39,6 +39,8 @@ gem 'pry-rails'
 gem 'annotate'
 gem 'bcrypt'
 gem 'jquery-rails'
+# gem 'redux-logger'
+# gem 'redux-thunk'
 
 group :development, :test do
   # Call 'byebug' anywhere in the code to stop execution and get a debugger console
