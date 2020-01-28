@@ -3,7 +3,7 @@
 import {
     RECEIVE_SESSION_ERRORS,
     RECEIVE_CURRENT_USER
-} from './actions/session_actions.js'
+} from '../actions/session_actions.js'
 
 const SessionErrorsReducer = (state = [], action) => {
     Object.freeze(state)
@@ -18,4 +18,5 @@ const SessionErrorsReducer = (state = [], action) => {
     }
 }
 
+export default SessionErrorsReducer
 //returns errors or if it receives a current user, returns no errors ([])

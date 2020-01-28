@@ -1,8 +1,8 @@
 //combines reducers that handle errors
 
-import { combineReducer } from 'redux'
-import sessions from './session_errors_reducer'
+import { combineReducers } from 'redux'
+import session from './session_errors_reducer'
 
-export default combineReducer({
-    sessions
+export default combineReducers({
+    session
 })
