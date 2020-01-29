@@ -1,21 +1,21 @@
 import { connect } from 'react-redux';
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { login } from '../../actions/session_actions';
+import { signup } from '../../actions/session_actions';
 import SessionForm from './session_form.jsx';
 
 //destruction = ({ errors})
 const mSTP = (state) => ({
     errors: state.session.errors, //is this correct? errors.session
-    formType: 'login',
-    navLink: <Link to="/signup">sign up instead</Link>,
+    formType: 'signup',
+    navLink: <Link to="/login">Log in instead</Link>,
 })
 
 
 //why do directions say to pass in ownProps?
 const mDTP = (dispatch) => {
     return {
-        processForm: (user) => dispatch(login(user))
+        processForm: (user) => dispatch(signup(user))
     };
 };
 
