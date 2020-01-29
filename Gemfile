@@ -39,6 +39,7 @@ gem 'pry-rails'
 gem 'annotate'
 gem 'bcrypt'
 gem 'jquery-rails'
+gem 'faker'
 # gem 'redux-logger'
 # gem 'redux-thunk'
 
