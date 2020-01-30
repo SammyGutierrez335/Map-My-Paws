@@ -9,13 +9,13 @@ class Api::SessionsController < ApplicationController
       login(@user)
       render "api/users/show"
     else
+      flash.now[:errors] = ["Invalid username and/or password"]
       render json: ["Invalid username and/or password"], status: 401
     end
   end
 
   def destroy
     @user = current_user
-    debugger
     if @user
       logout
       render "api/users/show"

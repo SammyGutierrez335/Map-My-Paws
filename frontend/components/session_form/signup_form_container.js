@@ -11,8 +11,6 @@ const mSTP = (state) => ({
     navLink: <Link to="/login">Log in instead</Link>,
 })
 
-
-//why do directions say to pass in ownProps?
 const mDTP = (dispatch) => {
     return {
         processForm: (user) => dispatch(signup(user))

@@ -22,7 +22,7 @@ class SessionForm extends React.Component {
   handleSubmit(e) {
     e.preventDefault();
     const user = Object.assign({}, this.state);
-    this.props.processForm(user).then(() => { this.props.history.push("/") })
+    this.props.processForm(user).then(() => { this.props.history.push("/welcome") })
   }
 
   // renderErrors() {
@@ -40,6 +40,19 @@ class SessionForm extends React.Component {
 
   //onSubmit={handleSubmit} is a convention 
   render() {
+    let emailInput
+    if (this.props.formType === "signup") {
+      emailInput =
+        (<label>Email:
+          <input type="text"
+            value={this.state.email}
+            onChange={this.update('email')}
+            className="login-input"
+          />
+        </label>
+        )
+    }
+
     return (
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
@@ -56,13 +69,7 @@ class SessionForm extends React.Component {
               />
             </label>
             <br />
-            <label>Email:
-              <input type="text"
-                value={this.state.email}
-                onChange={this.update('email')}
-                className="login-input"
-              />
-            </label>
+            {emailInput}
             <br />
             <label>Password:
               <input type="password"

@@ -3,10 +3,10 @@
 import { render } from "react-dom"
 import React from 'react'
 
-const splash = () => {
+const welcome = () => {
     return (
-        <div> this is homepage for guest </div>
+        <div> this is homepage for users once they are logged in </div>
     )
 }
 
-export default splash
+export default welcome
