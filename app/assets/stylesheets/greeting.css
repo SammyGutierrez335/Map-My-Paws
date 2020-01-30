@@ -1,0 +1,29 @@
+header nav a {
+    color: black;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+header nav a:last-of-type {
+    color: white;
+    background-color: #1ddd7c;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+header nav a:hover {
+    color: black;
+    background:#f5f5f5;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+header nav a:last-of-type:hover {
+    color: white;
+    background-color: #139b57;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+}

@@ -23,47 +23,24 @@ html {
 body {
   height: 100%;
 }
+
 main {
-  height: 66%
+  height: 66%;
 }
 
-main div header {
+#root div {
+  height: 44%
+}
+
+#root div header {
   display: flex;
   justify-content: space-between;
-  padding: 10px
+  padding: 10px;
 }
 
 h1 {
-  color: rgb(28, 97, 201);
+  color: rgb(129, 28, 201);
   font-family: 'helvetica neue';
   font-size: 50px;
   font-weight: 200;
-}
-
-header {
-    height: 100%;
-    display: flex;
-    justify-content: center;
-    align-content: space-around;
-}
-
-.login-form-container {
-    background-color: rgb(218, 244, 243);
-    opacity: 0.75;
-  filter: alpha(opacity=20); /* For IE8 and earlier */
-}
-
-.login-form-container label {
-    color:rgb(94, 76, 48);
-    font-size: 30px;
-    font-weight: 400;
-}
-
-.login-form-box {
-    font-size: 18px
-}
-header nav a {
-    background: whitesmoke;
-    padding: 10px;
-    border-radius: 20px;
 }

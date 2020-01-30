@@ -5,8 +5,8 @@ import { Link } from 'react-router-dom';
 const Greeting = ({ history, currentUser, logout }) => {
     const loggedOutGreeting = () => (
         <nav className="login-signup">
-            <Link to="/login">Login</Link>
-            &nbsp;or&nbsp;
+            <Link to="/login">Log in</Link>
+            &nbsp;&nbsp;
       <Link to="/signup">Sign up!</Link>
         </nav>
     );

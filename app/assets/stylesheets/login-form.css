@@ -1,0 +1,39 @@
+
+.login-form-container {
+    background-color: rgb(144, 63, 179);
+    opacity: 0.75;
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+  filter: alpha(opacity=20); /* For IE8 and earlier */
+}
+
+.login-form-box {
+    font-size: 18px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.session-submit {
+    color: white;
+    background-color: #1ddd7c;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.session-submit:hover {
+    color: white;
+    background-color: #139b57;
+    text-decoration: none;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.login-form {
+    display: flex;
+    align-items: space-around;
+}
