@@ -38,7 +38,7 @@ class User < ApplicationRecord
   def reset_session_token!
     # When a user logs out, we want to scramble their session_token so that bad people cannot use the old one
     self.session_token = SecureRandom.urlsafe_base64
-    self.save
+    self.save!
     self.session_token
   end
 end

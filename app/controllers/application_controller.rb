@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  protect_from_forgery prepend: true
-
+  # protect_from_forgery with: :null_session
+  skip_before_action :verify_authenticity_token
   helper_method :current_user, :logged_in?
 
   private
@@ -16,6 +16,7 @@ class ApplicationController < ActionController::Base
 
   def login(user)
     user.reset_session_token!
+    debugger
     session[:session_token] = user.session_token
     @current_user = user
   end
