@@ -28,15 +28,19 @@ main {
   height: 88%;
 }
 
-#root div {
-  height: 66%;
+#root > div {
+  height: 75%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 }
 
 #root div header {
+  padding: 10px;
   display: flex;
   justify-content: space-between;
-  padding: 10px;
 }
+
 
 h1 {
   color: rgb(129, 28, 201);

@@ -1,26 +1,34 @@
-.login-form-box {
-    height: 66%;
+.login-form-container {
+    height: 75%;
     display: flex;
-    align-items: center;
+    justify-content: space-around;
+}
+
+.login-form-box {
+    height: 69%;
+    display: flex;
+    flex-direction: column;
     justify-content: space-around;
     background-color: rgb(144, 63, 179);
-    opacity: 0.75;
-    width: 55%;
+    opacity: 96%;
+    width: 65%;
   filter: alpha(opacity=20); /* For IE8 and earlier */
 }
 
 .login-form-box div {
-    width: 66%;
+    height: 100%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-around;
 }
 
 .login-form input {
-    width: 99%;
+    align-self: center;
+    width: 66%;
     border: 1px solid lightgreen;
     border-radius: 5px;
-    padding: 6px;
+    padding: 10px;
 }
 
 input[type=text]:focus {
@@ -34,15 +42,16 @@ input[type=password]:focus {
 .session-submit {
     color: white;
     background-color: #1ddd7c;
-    text-decoration: none;
-    padding: 6px;
-    border-radius: 5px;
 }
 
 .session-submit:hover {
     color: white;
     background-color: #139b57;
     text-decoration: none;
-    padding: 6px;
+    padding: 10px;
     border-radius: 5px;
+}
+
+.welcomeImg {
+object-fit: scale-down;
 }
