@@ -2,10 +2,10 @@
 
 import { combineReducers } from 'redux';
 
-import users from './users_reducer'
+import usersReducer from './users_reducer'
 
 export default combineReducers({
-    users
+    users: usersReducer
 })
 
 //users is a key-value pair that points to usersReducer

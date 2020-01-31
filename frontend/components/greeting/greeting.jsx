@@ -2,12 +2,12 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 import { Link } from 'react-router-dom';
 
-const Greeting = ({ history, currentUser, logout }) => {
+const Greeting = ({ history, currentUser, logout, clearErrors }) => {
     const loggedOutGreeting = () => (
         <nav className="login-signup">
-            <Link to="/login">Log in</Link>
+            <Link to="/login" onClick={clearErrors}>Log in</Link>
             &nbsp;&nbsp;
-      <Link to="/signup">Sign up!</Link>
+      <Link to="/signup" onClick={clearErrors}>Sign up!</Link>
         </nav>
     );
 

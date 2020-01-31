@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 
 import { logout } from '../../actions/session_actions'
+import { clearErrors } from '../../actions/session_actions'
 import Greeting from './greeting'
 
 //destructering = ({ session, entities: { users } })
@@ -12,7 +13,8 @@ const mSTP = state => {
 };
 
 const mDTP = dispatch => ({
-    logout: () => dispatch(logout())
+    logout: () => dispatch(logout()),
+    clearErrors: () => dispatch(clearErrors())
 })
 //logout action creator is passed as prop to presentiation component
 

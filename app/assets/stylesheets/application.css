@@ -41,6 +41,28 @@ main {
 h1 {
   color: rgb(129, 28, 201);
   font-family: 'helvetica neue';
-  font-size: 50px;
+  font-size: 36px;
   font-weight: 200;
+}
+
+h3 {
+  font-size: 24px;
+  color: white;
+    background-color: rgb(144, 63, 179);
+    opacity: 0.75;
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+  filter: alpha(opacity=20); /* For IE8 and earlier */
+}
+
+h4 {
+font-size: 24px;
+color: white;
+    background-color: rgb(144, 63, 179);
+    opacity: 0.75;
+    width: 50%;
+    height: 50%;
+    justify-content: center;
+  filter: alpha(opacity=20); /* For IE8 and earlier */
 }

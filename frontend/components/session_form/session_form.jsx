@@ -25,17 +25,17 @@ class SessionForm extends React.Component {
     this.props.processForm(user).then(() => { this.props.history.push("/welcome") })
   }
 
-  // renderErrors() {
-  //   return (
-  //     <ul>
-  //       {this.props.errors.map((error, i) => (
-  //         <li key={`error-${i}`}>
-  //           {error}
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   );
-  // }
+  renderErrors() {
+    return (
+      <ul>
+        {this.props.errors.map((error, i) => (
+          <li key={`error-${i}`}>
+            {error}
+          </li>
+        ))}
+      </ul>
+    );
+  }
 
 
   //onSubmit={handleSubmit} is a convention 
@@ -57,7 +57,7 @@ class SessionForm extends React.Component {
     return (
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          {/* {this.renderErrors()} */}
+          {this.renderErrors()}
           <div className="login-form">
             <label>
               <input type="text"

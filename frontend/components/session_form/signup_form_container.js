@@ -6,7 +6,7 @@ import SessionForm from './session_form.jsx';
 
 //destruction = ({ errors})
 const mSTP = (state) => ({
-    errors: state.session.errors, //is this correct? errors.session
+    errors: state.errors.session,
     formType: 'signup',
     navLink: <Link to="/login">Log in instead</Link>,
 })
