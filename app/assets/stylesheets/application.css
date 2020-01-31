@@ -36,6 +36,8 @@ main {
 }
 
 #root div header {
+  min-height: 38.992px;
+  min-width: 341.818px;
   padding: 10px;
   display: flex;
   justify-content: space-between;

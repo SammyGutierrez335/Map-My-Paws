@@ -1,4 +1,3 @@
 .logo {
-    position: sticky;
-    top: 5px
+    object-fit: scale-down;
 }
