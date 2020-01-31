@@ -11,7 +11,7 @@ import Welcome from './welcome/welcome.jsx'
 const App = () => (
     <div>
         <header>
-            <h1>Map My Paws</h1>
+            <img class="logo" src={window.logo} />
             <GreetingContainer />
         </header>
         <Switch>

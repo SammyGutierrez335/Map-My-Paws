@@ -1,21 +1,35 @@
-
-.login-form-container {
+.login-form-box {
+    height: 66%;
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
     background-color: rgb(144, 63, 179);
     opacity: 0.75;
-    width: 50%;
-    height: 50%;
-    justify-content: center;
+    width: 55%;
   filter: alpha(opacity=20); /* For IE8 and earlier */
 }
 
-.login-form-box {
-    font-size: 18px;
-    height: 100px;
+.login-form-box div {
+    width: 66%;
     display: flex;
-    align-items: center;
-    justify-content: center;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
+.login-form input {
+    width: 99%;
+    border: 1px solid lightgreen;
+    border-radius: 5px;
+    padding: 6px;
+}
+
+input[type=text]:focus {
+    background-color: lightblue;
+}
+
+input[type=password]:focus {
+    background-color: lightblue;
+}
 
 .session-submit {
     color: white;
@@ -31,9 +45,4 @@
     text-decoration: none;
     padding: 6px;
     border-radius: 5px;
-}
-
-.login-form {
-    display: flex;
-    align-items: space-around;
 }
