@@ -3,7 +3,7 @@
 import { render } from "react-dom"
 import React from 'react'
 
-class welcome extends React.Component {
+class route extends React.Component {
     componentDidMount() {
         const options = {
             center: { lat: 37.0902, lng: -95.7129 },
@@ -24,4 +24,4 @@ class welcome extends React.Component {
 
 }
 
-export default welcome
+export default route
