@@ -1,11 +1,11 @@
-//
-
 import React from "react";
 import { Provider } from "react-redux"
 import { HashRouter } from "react-router-dom"
 import App from "./app";
 
 //accepts store as a prop
+//provider makes store available to all children
+
 const Root = ({ store }) => (
     <Provider store={store}>
         <HashRouter>

@@ -56,7 +56,7 @@ class SessionForm extends React.Component {
     return (
       <div className="login-form-container">
         <form onSubmit={this.handleSubmit} className="login-form-box">
-          <img class="welcomeImg" src={window.welcomeImg} />
+          <img className="welcomeImg" src={window.welcomeImg} />
           <div className="login-form">
             <input type="text"
               placeholder='Username'

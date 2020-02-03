@@ -6,9 +6,7 @@ import React from 'react'
 const splash = () => {
     return (
         <div>
-            <footer>
 
-            </footer>
         </div>
     )
 }

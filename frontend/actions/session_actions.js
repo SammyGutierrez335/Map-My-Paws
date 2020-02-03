@@ -36,3 +36,12 @@ export const logout = () => dispatch => (
         .then(() => dispatch(logoutCurrentUser()))
 );
 
+//what APIUtil.logout() returns.
+//
+// export const logout = () => {
+//     return $.ajax({
+//         url: '/api/session',
+//         method: 'DELETE'
+//     })
+// }
+

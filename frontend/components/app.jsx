@@ -8,10 +8,12 @@ import SignupFormContainer from "./session_form/signup_form_container"
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import Splash from './splash.jsx'
 import Welcome from './welcome/welcome.jsx'
+import Navlinks from './header/navlinks.jsx'
 const App = () => (
     <div>
         <header>
-            <img class="logo" src={window.logo} />
+            <img className="logo" src={window.logo} />
+            <Navlinks />
             <GreetingContainer />
         </header>
         <Switch>
@@ -25,4 +27,5 @@ const App = () => (
     </div>
 )
 
+//hashRouter provides an event listener to check to see if path changes/matches and if so, it renders that container component.
 export default App
