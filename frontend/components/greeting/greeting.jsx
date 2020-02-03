@@ -21,6 +21,7 @@ const Greeting = ({ history, currentUser, logout, clearErrors }) => {
             <h2 className="header-name">Hi, {currentUser.username}!</h2>
             <button className="logout-button" onClick={handleLogOut}>Log Out</button>
         </hgroup>
+
     );
 
     return currentUser ? loggedInGreeting() : loggedOutGreeting();
