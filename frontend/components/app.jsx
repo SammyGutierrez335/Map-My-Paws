@@ -15,7 +15,9 @@ import new_route from './routes/create.jsx'
 const App = () => (
     <div>
         <header>
-            <img className="logo" src={window.logo} />
+            <a href="/">
+                <img className="logo" src={window.logo} />
+            </a>
             <Navlinks />
             <GreetingContainer />
         </header>

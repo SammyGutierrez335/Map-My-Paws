@@ -19,7 +19,7 @@ const Greeting = ({ history, currentUser, logout, clearErrors }) => {
     const loggedInGreeting = () => (
         <hgroup className="header-group">
             <h2 className="header-name">Hi, {currentUser.username}!</h2>
-            <button className="header-button" onClick={handleLogOut}>Log Out</button>
+            <button className="logout-button" onClick={handleLogOut}>Log Out</button>
         </hgroup>
     );
 
