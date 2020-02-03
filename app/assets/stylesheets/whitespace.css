@@ -1,0 +1,35 @@
+.whitespace-top{
+    height: 7%;
+    width: 100%;
+    background: white;
+    position: absolute;
+    z-index: -1;
+}
+.whitespace-bot{
+    height:100%;
+    width: 100%;
+
+    background: white;
+    position: absolute;
+    z-index: -1;
+    transform: rotate(-4deg) translateX(-20%);
+    margin-left: 10%;
+    margin-top: 40%;
+
+}
+.whitespace-left{
+    height: 200%;
+    width: 13%;
+
+    background: white;
+    position: absolute;
+    z-index: -1;
+}
+.whitespace-right{
+    height: 200%;
+    width: 13%;
+    background: white;
+    position: absolute;
+    margin-left: 87%;
+    z-index: -1;
+}

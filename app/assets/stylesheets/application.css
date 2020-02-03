@@ -13,13 +13,18 @@
  *= require_tree .
  *= require_self
  */
+
 html {
   height: 100%;
+  width: 100%;
   background-image: url("https://images.theconversation.com/files/223380/original/file-20180615-85830-1m127xe.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip");
   background-position: center;
   background-repeat: no-repeat;
   background-size: cover;
+  position: absolute;
+  z-index: -2;
 }
+
 body {
   height: 100%;
 }
@@ -40,7 +45,12 @@ main {
   min-width: 341.818px;
   padding: 10px;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-evenly;
+}
+
+.nav-links {
+    padding: 6px;
+    border-radius: 5px;
 }
 
 .nav-links a {
@@ -55,7 +65,7 @@ main {
     padding: 6px;
     border-radius: 5px;
 }
-}
+
 h1 {
   color: rgb(129, 28, 201);
   font-family: 'helvetica neue';
