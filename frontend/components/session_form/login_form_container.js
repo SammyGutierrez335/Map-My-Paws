@@ -8,7 +8,7 @@ import SessionForm from './session_form.jsx';
 const mSTP = (state) => ({
     errors: state.errors.session, //
     formType: 'login',
-    navLink: <Link to="/signup">sign up instead</Link>,
+    navLink: <Link to="/signup">Sign up instead</Link>,
 })
 
 

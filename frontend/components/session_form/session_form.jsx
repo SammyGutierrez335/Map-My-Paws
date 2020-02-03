@@ -73,6 +73,7 @@ class SessionForm extends React.Component {
             />
             <input className="session-submit" type="submit" value={this.props.formType} />
             {this.renderErrors()}
+            {this.props.navLink}
           </div>
         </form>
       </div>

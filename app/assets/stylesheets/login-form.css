@@ -40,6 +40,11 @@
     color: red;
 }
 
+.login-form a {
+    text-align: center;
+    color: white;
+}
+
 input[type=text]:focus {
     background-color: lightblue;
 }
