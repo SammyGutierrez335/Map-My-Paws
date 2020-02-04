@@ -40,9 +40,8 @@ class route extends React.Component {
             this.handleLeftClick([lat, lng]);
         });
         google.maps.event.addListener(this.map, 'rightclick', (event) => {
-            this.state.waypoints.pop()
-            let coords = this.state.waypoints.pop()
-            this.handleRightClick(coords);
+            this.handleRightClick(this.state.waypoints.length - 1);
+            console.log(this.state.waypoints)
         });
     }
 
@@ -53,10 +52,18 @@ class route extends React.Component {
             map: this.map,
         })
     }
-    handleRightClick(newLastWaypoint) {
-        this.setState({ waypoints: [...this.state.waypoints, newLastWaypoint] }) //setstate, waypoint slice of state is merged with new coords.
-        // this.renderMarkers(this.state.waypoints)
+
+    handleRightClick(index) {
+        // this.setState({ waypoints: [...this.state.waypoints, newLastWaypoint] }) //setstate, waypoint slice of state is merged with new coords.
+        this.setState(state => {
+            const waypoints = state.waypoints.filter((waypoint, j) => index !== j);
+
+            return {
+                waypoints
+            }
+        })
     }
+
     // waypointsToLatLng(waypoints) {
     //     waypoints.map(waypoint => {
     //         { lat: waypoint[0], lng: [waypoint[1]] }
