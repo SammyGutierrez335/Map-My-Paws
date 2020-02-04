@@ -13,13 +13,6 @@ import Navlinks from './header/navlinks.jsx'
 import RoutesHome from './routes/home.jsx'
 import new_route from './routes/create.jsx'
 
-// const path = () => {
-//     if (state.entities.users[state.session.id]) {
-//         return '/my_home/#user_dashboard'
-//     } else {
-//         return '/';
-//     }
-// }
 
 const App = () => (
     <div>
