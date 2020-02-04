@@ -4,6 +4,13 @@
     width:20px;
     height: 20px;
 }
+#map-location-input div input {
+    width: 80%
+}
+
+#map-details-input div input {
+    width: 80%
+}
 .map-container {
     display: flex;
     justify-content: space-evenly;
@@ -33,8 +40,17 @@
     display: inline-block;
     background: linear-gradient(to bottom, #b6b6b6 5%, #a9a6a6 100%);
     border-radius: 5px;
+    width: 60%
 }
 #map {
     z-index: 2;
     width: 80%
+}
+
+#waypoints {
+    border: 2px solid #a9a6a6;
+    background: #b6b6b6;
+}
+#waypoints li {
+    background: lightgray;
 }
