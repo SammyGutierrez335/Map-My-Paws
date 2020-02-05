@@ -2,6 +2,7 @@
 
 import { render } from "react-dom"
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 
 class route extends React.Component {
@@ -13,11 +14,13 @@ class route extends React.Component {
     }
 
     componentDidMount() {
+        let currentPosition = { lat: 37.0902, lng: -95.7129 }
         const options = {
             center: { lat: 37.0902, lng: -95.7129 },
             zoom: 4
         }
         const map = document.getElementById("map")
+        this.setState({ currentPosition })
         this.map = new google.maps.Map(map, options)
         this.registerListeners();
     }
@@ -40,7 +43,6 @@ class route extends React.Component {
         });
         google.maps.event.addListener(this.map, 'rightclick', (event) => {
             this.handleRightClick(this.state.waypoints.length - 1);
-            console.log(this.state.waypoints)
         });
     }
 
@@ -89,8 +91,24 @@ class route extends React.Component {
     //         strokeWeight: 2
     //     })
     //     routeLine.setMap(this.map)
+    getCurrentPosition() {
+        let options = {
+            enableHighAccuracy: true
+        }
+        function error(err) {
+            console.warn(`ERROR(${err.code}): ${err.message}`);
+        }
+        navigator.geolocation.getCurrentPosition(this.setCurrentPosition.bind(this), error, options)
+    }
 
-
+    setCurrentPosition(GeolocationPostition) {
+        //adjust for accuracy
+        let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
+        this.setState({ currentPosition })
+        this.map.setZoom(18)
+        console.log(this.state.currentPosition)
+        this.map.setCenter(this.state.currentPosition)
+    }
 
     render() {
         let waypoints = this.state.waypoints
@@ -103,8 +121,8 @@ class route extends React.Component {
                         <div id="location-input-container">
                             <input type="text" id="location-input-field" placeholder="Address or Zip Code"
                                 defaultValue="" autoComplete="off" />
-                            <a className="location-icon" title="Use My Current Location" href="#">
-                                <img src={window.locationIcon}></img>
+                            <a className="location-icon" title="Use My Current Location">
+                                <img src={window.locationIcon} onClick={this.getCurrentPosition.bind(this)}></img>
                             </a>
                         </div>
                         <button className="search-button">Search</button>
