@@ -9,7 +9,7 @@ class route extends React.Component {
 
     constructor(props) {
         super(props);
-        this.state = { waypoints: [] }
+        this.state = { waypoints: [], searchLocation: "" }
         this.markers = []
     }
 
@@ -99,15 +99,35 @@ class route extends React.Component {
             console.warn(`ERROR(${err.code}): ${err.message}`);
         }
         navigator.geolocation.getCurrentPosition(this.setCurrentPosition.bind(this), error, options)
+        console.log(GeolocationPosition)
     }
 
-    setCurrentPosition(GeolocationPostition) {
+    setCurrentPosition(e, GeolocationPostition = this.state.searchLocation) {
+        console.log(this.state.searchLocation)
+        console.log(GeolocationPostition)
         //adjust for accuracy
-        let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
-        this.setState({ currentPosition })
-        this.map.setZoom(18)
-        console.log(this.state.currentPosition)
-        this.map.setCenter(this.state.currentPosition)
+        if (typeof GeolocationPostition === "string") {
+            let geocoder = new google.maps.Geocoder()
+            geocoder.geocode({ address: GeolocationPostition }, (result) => {
+                let lat = result[0].geometry.location.lat()
+                let lng = result[0].geometry.location.lng()
+                let mapLocation = { lat, lng }
+                this.setState({ mapLocation })
+                this.map.setCenter(this.state.mapLocation)
+                this.map.setZoom(18)
+            })
+        } else {
+            let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
+            this.setState({ currentPosition })
+            this.map.setCenter(this.state.currentPosition)
+            this.map.setZoom(18)
+        }
+    }
+
+    update(field) {
+        return e => this.setState({
+            [field]: e.currentTarget.value
+        });
     }
 
     render() {
@@ -119,13 +139,16 @@ class route extends React.Component {
                     <article id="map-location-input">
                         <label htmlFor="location-input-box">Choose Map Location</label>
                         <div id="location-input-container">
-                            <input type="text" id="location-input-field" placeholder="Address or Zip Code"
-                                defaultValue="" autoComplete="off" />
+                            <input type="text" id="location-input-field"
+                                placeholder="Address or Zip Code"
+                                value={this.state.searchLocation}
+                                onChange={this.update('searchLocation')}
+                                autoComplete="off" />
                             <a className="location-icon" title="Use My Current Location">
                                 <img src={window.locationIcon} onClick={this.getCurrentPosition.bind(this)}></img>
                             </a>
                         </div>
-                        <button className="search-button">Search</button>
+                        <button className="search-button" onClick={this.setCurrentPosition.bind(this)}>Search</button>
                         <br />
                     </article>
                     <div id="map-details-input">
