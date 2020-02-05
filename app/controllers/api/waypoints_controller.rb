@@ -2,7 +2,6 @@ class Api::WaypointsController < ApplicationController
     before_action :require_logged_in, only: [:create]
 
   def index
-    @waypoints = 
     render :index
   end
 
@@ -23,4 +22,3 @@ class Api::WaypointsController < ApplicationController
 
 end
 
-end
