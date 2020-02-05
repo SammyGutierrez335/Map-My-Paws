@@ -4,7 +4,7 @@ import {
     RECEIVE_SESSION_ERRORS,
     RECEIVE_CURRENT_USER,
     CLEAR_SESSION_ERRORS
-} from '../actions/session_actions.js'
+} from '../../actions/session_actions.js'
 const _nullErrors = []
 
 const sessionErrorsReducer = (state = _nullErrors, action) => {

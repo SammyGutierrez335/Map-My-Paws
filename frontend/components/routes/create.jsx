@@ -99,29 +99,26 @@ class route extends React.Component {
             console.warn(`ERROR(${err.code}): ${err.message}`);
         }
         navigator.geolocation.getCurrentPosition(this.setCurrentPosition.bind(this), error, options)
-        console.log(GeolocationPosition)
     }
 
-    setCurrentPosition(e, GeolocationPostition = this.state.searchLocation) {
-        console.log(this.state.searchLocation)
-        console.log(GeolocationPostition)
-        //adjust for accuracy
-        if (typeof GeolocationPostition === "string") {
-            let geocoder = new google.maps.Geocoder()
-            geocoder.geocode({ address: GeolocationPostition }, (result) => {
-                let lat = result[0].geometry.location.lat()
-                let lng = result[0].geometry.location.lng()
-                let mapLocation = { lat, lng }
-                this.setState({ mapLocation })
-                this.map.setCenter(this.state.mapLocation)
-                this.map.setZoom(18)
-            })
-        } else {
-            let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
-            this.setState({ currentPosition })
-            this.map.setCenter(this.state.currentPosition)
+    setMapLocation() {
+        let geocoder = new google.maps.Geocoder()
+        geocoder.geocode({ address: this.state.searchLocation }, (result) => {
+            let lat = result[0].geometry.location.lat()
+            let lng = result[0].geometry.location.lng()
+            let mapLocation = { lat, lng }
+            this.setState({ mapLocation })
+            this.map.setCenter(this.state.mapLocation)
             this.map.setZoom(18)
-        }
+        })
+    }
+
+    setCurrentPosition(GeolocationPostition) {
+        //adjust for accuracy
+        let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
+        this.setState({ currentPosition })
+        this.map.setCenter(this.state.currentPosition)
+        this.map.setZoom(18)
     }
 
     update(field) {
@@ -132,7 +129,9 @@ class route extends React.Component {
 
     render() {
         let waypoints = this.state.waypoints
+
         const waypointslis = waypoints.map((waypoint, i) => <li key={i}>{waypoint}</li>)
+
         return (
             <div className="mapcontainer" >
                 <div id="info-panels">
@@ -148,7 +147,7 @@ class route extends React.Component {
                                 <img src={window.locationIcon} onClick={this.getCurrentPosition.bind(this)}></img>
                             </a>
                         </div>
-                        <button className="search-button" onClick={this.setCurrentPosition.bind(this)}>Search</button>
+                        <button className="search-button" onClick={this.setMapLocation.bind(this)}>Search</button>
                         <br />
                     </article>
                     <div id="map-details-input">

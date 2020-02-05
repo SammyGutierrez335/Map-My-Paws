@@ -1,4 +1,4 @@
-import { RECEIVE_WAYPOINTS } from "../actions/waypoint_actions";
+import { RECEIVE_WAYPOINTS } from "../../actions/waypoint_actions";
 
 const waypointsReducer = (state = {}, action) => {
     Object.freeze(state);
