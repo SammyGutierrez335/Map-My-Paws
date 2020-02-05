@@ -7,7 +7,15 @@
 #map-location-input div input {
     width: 80%
 }
-
+#location-input-container {
+    display: flex;
+    justify-content: space-around;
+}
+.location-icon img{
+    max-height: 25px;
+    max-width: 25px;
+    object-fit: scale-down;
+}
 #map-details-input div input {
     width: 80%
 }
@@ -48,6 +56,7 @@
 }
 
 #waypoints {
+    width: 80%;
     border: 2px solid #a9a6a6;
     background: #b6b6b6;
 }

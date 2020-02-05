@@ -1,18 +1,17 @@
 //home page that all users can see
 
 import { render } from "react-dom"
-// import React, { useState } from 'react'
 import React from 'react'
-
-
 
 
 class route extends React.Component {
 
     constructor(props) {
-        super(props)
+        super(props);
         this.state = { waypoints: [] }
+        this.markers = []
     }
+
     componentDidMount() {
         const options = {
             center: { lat: 37.0902, lng: -95.7129 },
@@ -50,20 +49,21 @@ class route extends React.Component {
         let marker = new google.maps.Marker({
             position: { lat: coords[0], lng: coords[1] },
             map: this.map,
+            icon: window.pawIconGreen
         })
+        this.markers.push(marker)
     }
 
     handleRightClick(index) {
-        // this.setState({ waypoints: [...this.state.waypoints, newLastWaypoint] }) //setstate, waypoint slice of state is merged with new coords.
         this.setState(state => {
-            const waypoints = state.waypoints.filter((waypoint, j) => index !== j);
+            const waypoints = state.waypoints.filter((waypoint, j) => index !== j)
 
             return {
                 waypoints
             }
         })
+        this.markers.pop().setMap(null);
     }
-
     // waypointsToLatLng(waypoints) {
     //     waypoints.map(waypoint => {
     //         { lat: waypoint[0], lng: [waypoint[1]] }
@@ -104,7 +104,7 @@ class route extends React.Component {
                             <input type="text" id="location-input-field" placeholder="Address or Zip Code"
                                 defaultValue="" autoComplete="off" />
                             <a className="location-icon" title="Use My Current Location" href="#">
-                                <span className="mapping-sprite"></span>
+                                <img src={window.locationIcon}></img>
                             </a>
                         </div>
                         <button className="search-button">Search</button>
@@ -131,8 +131,6 @@ class route extends React.Component {
             </div>
         )
     }
-
-
 }
 
 export default route
