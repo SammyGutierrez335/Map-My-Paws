@@ -1,6 +1,6 @@
 require 'test_helper'
 
-class Api::WaypointsControllerTest < ActionDispatch::IntegrationTest
+class Api::RoutesControllerTest < ActionDispatch::IntegrationTest
   # test "the truth" do
   #   assert true
   # end
