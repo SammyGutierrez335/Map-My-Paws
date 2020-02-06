@@ -11,6 +11,10 @@ class route extends React.Component {
         super(props);
         this.state = { waypoints: [], searchLocation: "", routeName: "" }
         this.markers = []
+        this.direction = new google.maps.DirectionsService();
+        this.renderer = new google.maps.DirectionsRenderer({
+            draggable: true
+        });
     }
 
     componentDidMount() {
@@ -49,22 +53,23 @@ class route extends React.Component {
     }
 
     getDirections() {
-        let direction = new google.maps.DirectionsService();
-        let renderer = new google.maps.DirectionsRenderer()
-        renderer.setMap(this.map)
+        const renderer = this.renderer
+        this.renderer.setMap(this.map)
+        this.renderer.setPanel(document.getElementById('directionsPanel'))
         let waypoints = this.state.waypoints;
         if (waypoints.length > 1) {
             let origin = { lat: waypoints[0][0], lng: waypoints[0][1] };
             let lastWaypoint = waypoints[waypoints.length - 1]
             let destination = { lat: lastWaypoint[0], lng: lastWaypoint[1] };
             let middlePointsArr = []
-            for (let i = 1; i < waypoints.length; i++) {
+            for (let i = 1; i < waypoints.length - 1; i++) {
                 middlePointsArr.push({
                     location: { lat: waypoints[i][0], lng: waypoints[i][1] },
                     stopover: false
                 })
             }
-            direction.route({
+            console.log(middlePointsArr)
+            this.direction.route({
                 origin: origin,
                 destination: destination,
                 travelMode: "WALKING",
@@ -76,6 +81,8 @@ class route extends React.Component {
                     renderer.setDirections(result)
                 }
             })
+        } else {
+            renderer.setMap(null)
         }
     }
 
@@ -85,7 +92,6 @@ class route extends React.Component {
         let marker
         let position = { lat: coords[0], lng: coords[1] }
         let map = this.map
-        console.log(this.state.waypoints)
         if (typeof this.state.waypoints[1] === 'undefined') {
             marker = new google.maps.Marker({
                 position: position,
@@ -191,14 +197,7 @@ class route extends React.Component {
                         <button className="search-button">Save Route</button>
                     </div>
                     <br />
-                    <div>
-                        <div id="waypoints">
-                            <label>Directions</label>
-                            <ul>
-                                {waypointslis}
-                            </ul>
-                        </div>
-                    </div>
+                    <div id="directionsPanel"></div>
                 </div>
                 <div id="map"></div>
             </div>
