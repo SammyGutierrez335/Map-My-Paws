@@ -28,7 +28,7 @@ class SessionForm extends React.Component {
 
   demoUserLogin(e) {
     e.preventDefault();
-    const user = { username: "gadd", password: "woofwoof" };
+    const user = { username: "Wolfgang Puppydeus Mozart", password: "woofwoof" };
     this.props.loginDemoUser(user).then(() => { this.props.history.push("/my_home/#user_dashboard") })
   }
 
