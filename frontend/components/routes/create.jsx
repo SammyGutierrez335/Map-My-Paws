@@ -170,7 +170,6 @@ class route extends React.Component {
 
 
     endRoute() {
-        console.log("route has been saved")
         //saveRoute()
     }
 
