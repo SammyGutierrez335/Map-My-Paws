@@ -1,0 +1,29 @@
+#root div header {
+  min-height: 38.992px;
+  min-width: 341.818px;
+  padding: 5px;
+  display: flex;
+  justify-content: space-evenly;
+}
+
+#root div header:before {
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+  border-top: linear-gradient(transparent, rgba(0, 0, 0, 0.1));
+}
+.nav-links {
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: black;
+    padding: 6px;
+    border-radius: 5px;
+}
+
+.nav-links a:hover {
+    background:#f5f5f5;
+    padding: 6px;
+    border-radius: 5px;
+}
