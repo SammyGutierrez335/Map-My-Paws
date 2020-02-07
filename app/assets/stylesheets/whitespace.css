@@ -18,7 +18,7 @@
 
 }
 .whitespace-left{
-    height: 200%;
+    height: 100%;
     width: 13%;
 
     background: white;
@@ -26,7 +26,7 @@
     z-index: -1;
 }
 .whitespace-right{
-    height: 200%;
+    height: 120%;
     width: 13%;
     background: white;
     position: absolute;
