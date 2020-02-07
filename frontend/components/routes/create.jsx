@@ -11,6 +11,8 @@ class route extends React.Component {
         super(props);
         this.state = { waypoints: [], searchLocation: "", routeName: "" }
         this.markers = []
+        this.useCurrentPosition = this.useCurrentPosition.bind(this)
+        this.setCurrentPosition = this.setCurrentPosition.bind(this)
         this.direction = new google.maps.DirectionsService();
         this.renderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
@@ -25,33 +27,25 @@ class route extends React.Component {
     }
 
     componentDidMount() {
+        //default coordinates for united states
         let currentPosition = { lat: 37.0902, lng: -95.7129 }
         const options = {
             center: { lat: 37.0902, lng: -95.7129 },
             zoom: 4,
-            zoomControl: true,
-            fullscreenControl: true,
         }
         const map = document.getElementById("map")
         this.setState({ currentPosition })
+        //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
         this.registerListeners();
     }
 
     registerListeners() {
-        google.maps.event.addListener(this.map, 'idle', () => {
-            const { north, south, east, west } = this.map.getBounds().toJSON();
-            const bounds = {
-                northEast: { lat: north, lng: east },
-                southWest: { lat: south, lng: west }
-            };
-        });
-
         //click adds waypoint
         google.maps.event.addListener(this.map, 'click', (event) => {
             let lat = event.latLng.lat()
             let lng = event.latLng.lng()
-
+            console.log(event.latLng)
             this.handleLeftClick([lat, lng]);
         });
 
@@ -59,10 +53,11 @@ class route extends React.Component {
         google.maps.event.addListener(this.map, 'rightclick', (event) => {
             this.handleRightClick(this.state.waypoints.length - 1);
         });
+
     }
 
     handleLeftClick(coords) {
-        this.setState({ waypoints: [...this.state.waypoints, coords] }) //setstate, waypoint slice of state is merged with new coords.
+        this.setState({ waypoints: [...this.state.waypoints, coords] }) //setstate, waypoint slice of state is merged with new coords(waypoint).
         let marker
         let position = { lat: coords[0], lng: coords[1] }
         let map = this.map
@@ -81,9 +76,12 @@ class route extends React.Component {
                 draggable: false,
             })
         }
-        //adds marker
+        //adds marker to an array stored in state
         this.markers.push(marker)
-        google.maps.event.addListener(marker, 'click', this.endRoute)
+        // code will allow user to click on a marker to end route
+        // google.maps.event.addListener(marker, 'click', this.endRoute)
+
+        //get the directions to display in the info panel ln:133
         this.getDirections()
     }
 
@@ -98,19 +96,21 @@ class route extends React.Component {
         this.markers.pop().setMap(null);
         this.getDirections()
     }
-
-    getCurrentPosition() {
+    //grabs the location coordinates of the device
+    useCurrentPosition() {
         let options = {
             enableHighAccuracy: true
         }
         function error(err) {
-            console.warn(`ERROR(${err.code}): ${err.message}`);
+            alert(`It seems that you have not allowed us 
+            permission to use your location. 
+            Please enable your location to utilize this feature.`);
         }
-        navigator.geolocation.getCurrentPosition(this.setCurrentPosition.bind(this), error, options)
+        navigator.geolocation.getCurrentPosition(this.setCurrentPosition, error, options)
     }
 
     setCurrentPosition(GeolocationPostition) {
-        //adjust for accuracy
+        //adjustments for increased accuracy
         let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
         this.setState({ currentPosition })
         this.map.setCenter(this.state.currentPosition)
@@ -169,16 +169,6 @@ class route extends React.Component {
         });
     }
 
-
-    endRoute() {
-        //saveRoute()
-    }
-
-    // saveRoute() {
-    //     this.props.
-    //
-    // }
-
     render() {
         let waypoints = this.state.waypoints
 
@@ -197,7 +187,8 @@ class route extends React.Component {
                                 onChange={this.update('searchLocation')}
                                 autoComplete="off" />
                             <a className="location-icon" title="Use My Current Location">
-                                <img src={window.locationIcon} onClick={this.getCurrentPosition.bind(this)}></img>
+                                {/* icon to set map to current location 103*/}
+                                <img src={window.locationIcon} onClick={this.useCurrentPosition}></img>
                             </a>
                         </div>
                         <button className="search-button" onClick={this.setMapLocation.bind(this)}>Search</button>
@@ -210,7 +201,7 @@ class route extends React.Component {
                                 placeholder="Name Your Route"
                                 value={this.state.routeName}
                                 onChange={this.update('routeName')}
-                                autoComplete="off" />
+                                autoComplete="on" />
                         </div>
                         <button onClick={this.saveRoute} className="search-button">Save Route</button>
                     </div>

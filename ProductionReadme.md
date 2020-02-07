@@ -18,25 +18,11 @@ API Protection
 
 ## Key Features
 User Auth
-Maps API
-
-
-Things you may want to cover:
-
-* Rails version Rails 5.2.4.1
-
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+Maps API Setup
+    setting up an api key
+    protecting the api key in my rails application
+    inserting protected api key
+    load maps api to project in application.html.erb
+    creating an instance of the Map class
+Registering the Listeners
+    
