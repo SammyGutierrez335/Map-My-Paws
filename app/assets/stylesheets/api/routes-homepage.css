@@ -1,0 +1,24 @@
+.home-page {
+    height: 100%;
+    width: 100%;
+}
+
+.home-page {
+    height: 100%;
+    width: 100%;
+}
+
+.home_page_window {
+    margin-left: 1%;
+    height: 720px;
+    width: 1750px;
+    background: white;
+    display: flex;
+    justify-content: center;
+}
+#previous_route_container {
+    border: 10px solid black;
+    height: 50%;
+    width: 50%;
+    Font: grey
+}

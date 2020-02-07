@@ -10,8 +10,11 @@ https://map-my-paws.herokuapp.com/#/
 Google Maps Javascript API
 Google Directions Service
 Google Geocode Service
+Google Maps Places API
 React
 Redux
+
+API Protection
 
 ## Key Features
 User Auth

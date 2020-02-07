@@ -54,6 +54,7 @@ class route extends React.Component {
 
             this.handleLeftClick([lat, lng]);
         });
+
         //removes waypoint
         google.maps.event.addListener(this.map, 'rightclick', (event) => {
             this.handleRightClick(this.state.waypoints.length - 1);

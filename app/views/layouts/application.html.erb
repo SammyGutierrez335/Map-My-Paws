@@ -15,6 +15,7 @@
     <script type="text/javascript">window.pawprints = "<%= image_url('pawprints.svg') %>";</script>
     <title>Map My Paws</title>
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google[:api_key]}" %>
+    <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google[:api_key]}&libraries=places" %>
     <style type="text/css">
       #map {
         width: 1200px;
