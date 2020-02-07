@@ -3,11 +3,11 @@
 import { combineReducers } from 'redux';
 
 import usersReducer from './users_reducer'
-import waypointsReducer from './waypoints_reducer'
+import routeReducer from './route_reducer'
 
 export default combineReducers({
     users: usersReducer,
-    waypoints: waypointsReducer
+    routes: routeReducer
 })
 
 //users is a key-value pair that points to usersReducer

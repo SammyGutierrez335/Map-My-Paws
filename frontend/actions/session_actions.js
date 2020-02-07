@@ -4,6 +4,8 @@ export const RECEIVE_CURRENT_USER = 'RECEIVE_CURRENT_USER';
 export const LOGOUT_CURRENT_USER = 'LOGOUT_CURRENT_USER';
 export const RECEIVE_SESSION_ERRORS = 'RECEIVE_SESSION_ERRORS';
 export const CLEAR_SESSION_ERRORS = 'CLEAR_SESSION_ERRORS'
+
+
 export const receiveCurrentUser = currentUser => ({
     type: RECEIVE_CURRENT_USER,
     currentUser
@@ -35,13 +37,4 @@ export const logout = () => dispatch => (
     APIUtil.logout()
         .then(() => dispatch(logoutCurrentUser()))
 );
-
-//what APIUtil.logout() returns.
-//
-// export const logout = () => {
-//     return $.ajax({
-//         url: '/api/session',
-//         method: 'DELETE'
-//     })
-// }
 

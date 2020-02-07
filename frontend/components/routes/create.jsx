@@ -1,4 +1,4 @@
-//home page that all users can see
+//route creation page
 
 import { render } from "react-dom"
 import React from 'react'
@@ -13,7 +13,14 @@ class route extends React.Component {
         this.markers = []
         this.direction = new google.maps.DirectionsService();
         this.renderer = new google.maps.DirectionsRenderer({
-            draggable: true
+            suppressMarkers: true,
+            polylineOptions: {
+                // icons: [false, { fillOpacity: 1, path: window.pawprints }, '25%', '25%'],
+                strokeColor: "#0000FF",
+                strokeOpacity: .5,
+                strokeWeight: 5,
+                zIndex: 5
+            }
         });
     }
 
@@ -38,54 +45,20 @@ class route extends React.Component {
                 northEast: { lat: north, lng: east },
                 southWest: { lat: south, lng: west }
             };
-            // this.props.updateFilter('bounds', bounds);
         });
-        //click adds way
+
+        //click adds waypoint
         google.maps.event.addListener(this.map, 'click', (event) => {
             let lat = event.latLng.lat()
             let lng = event.latLng.lng()
 
             this.handleLeftClick([lat, lng]);
         });
+        //removes waypoint
         google.maps.event.addListener(this.map, 'rightclick', (event) => {
             this.handleRightClick(this.state.waypoints.length - 1);
         });
     }
-
-    getDirections() {
-        const renderer = this.renderer
-        this.renderer.setMap(this.map)
-        this.renderer.setPanel(document.getElementById('directionsPanel'))
-        let waypoints = this.state.waypoints;
-        if (waypoints.length > 1) {
-            let origin = { lat: waypoints[0][0], lng: waypoints[0][1] };
-            let lastWaypoint = waypoints[waypoints.length - 1]
-            let destination = { lat: lastWaypoint[0], lng: lastWaypoint[1] };
-            let middlePointsArr = []
-            for (let i = 1; i < waypoints.length - 1; i++) {
-                middlePointsArr.push({
-                    location: { lat: waypoints[i][0], lng: waypoints[i][1] },
-                    stopover: false
-                })
-            }
-            console.log(middlePointsArr)
-            this.direction.route({
-                origin: origin,
-                destination: destination,
-                travelMode: "WALKING",
-                waypoints: middlePointsArr,
-                optimizeWaypoints: false,
-                provideRouteAlternatives: false,
-            }, function (result, status) {
-                if (status === 'OK') {
-                    renderer.setDirections(result)
-                }
-            })
-        } else {
-            renderer.setMap(null)
-        }
-    }
-
 
     handleLeftClick(coords) {
         this.setState({ waypoints: [...this.state.waypoints, coords] }) //setstate, waypoint slice of state is merged with new coords.
@@ -97,21 +70,21 @@ class route extends React.Component {
                 position: position,
                 map: map,
                 icon: window.pawIconGreen,
-                draggable: true,
+                clickable: true
             })
         } else {
             marker = new google.maps.Marker({
                 position: { lat: coords[0], lng: coords[1] },
                 map: this.map,
                 icon: window.pawIconBlue,
-                draggable: true,
+                draggable: false,
             })
         }
         //adds marker
         this.markers.push(marker)
+        google.maps.event.addListener(marker, 'click', this.endRoute)
         this.getDirections()
     }
-
 
     handleRightClick(index) {
         this.setState(state => {
@@ -135,6 +108,14 @@ class route extends React.Component {
         navigator.geolocation.getCurrentPosition(this.setCurrentPosition.bind(this), error, options)
     }
 
+    setCurrentPosition(GeolocationPostition) {
+        //adjust for accuracy
+        let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
+        this.setState({ currentPosition })
+        this.map.setCenter(this.state.currentPosition)
+        this.map.setZoom(18)
+    }
+
     setMapLocation() {
         let geocoder = new google.maps.Geocoder()
         geocoder.geocode({ address: this.state.searchLocation }, (result) => {
@@ -147,12 +128,38 @@ class route extends React.Component {
         })
     }
 
-    setCurrentPosition(GeolocationPostition) {
-        //adjust for accuracy
-        let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
-        this.setState({ currentPosition })
-        this.map.setCenter(this.state.currentPosition)
-        this.map.setZoom(18)
+
+    getDirections() {
+        const renderer = this.renderer
+        this.renderer.setMap(this.map)
+        this.renderer.setPanel(document.getElementById('directionsPanel'))
+        let waypoints = this.state.waypoints;
+        if (waypoints.length > 1) {
+            let origin = { lat: waypoints[0][0], lng: waypoints[0][1] };
+            let lastWaypoint = waypoints[waypoints.length - 1]
+            let destination = { lat: lastWaypoint[0], lng: lastWaypoint[1] };
+            let middlePointsArr = []
+            for (let i = 1; i < waypoints.length - 1; i++) {
+                middlePointsArr.push({
+                    location: { lat: waypoints[i][0], lng: waypoints[i][1] },
+                    stopover: false
+                })
+            }
+            this.direction.route({
+                origin: origin,
+                destination: destination,
+                travelMode: "WALKING",
+                waypoints: middlePointsArr,
+                optimizeWaypoints: false,
+                provideRouteAlternatives: false,
+            }, function (result, status) {
+                if (status === 'OK') {
+                    renderer.setDirections(result)
+                }
+            })
+        } else {
+            renderer.setMap(null)
+        }
     }
 
     update(field) {
@@ -160,6 +167,17 @@ class route extends React.Component {
             [field]: e.currentTarget.value
         });
     }
+
+
+    endRoute() {
+        console.log("route has been saved")
+        //saveRoute()
+    }
+
+    // saveRoute() {
+    //     this.props.
+    //
+    // }
 
     render() {
         let waypoints = this.state.waypoints
@@ -194,7 +212,7 @@ class route extends React.Component {
                                 onChange={this.update('routeName')}
                                 autoComplete="off" />
                         </div>
-                        <button className="search-button">Save Route</button>
+                        <button onClick={this.saveRoute} className="search-button">Save Route</button>
                     </div>
                     <br />
                     <div id="directionsPanel"></div>
