@@ -36,15 +36,11 @@
     padding: 10px;
 }
 
-.login-form ul li{
+#errors li{
     text-align: center;
     color: red;
 }
 
-.login-form a {
-    text-align: center;
-    color: white;
-}
 
 input[type=text]:focus {
     background-color: lightblue;
@@ -65,8 +61,40 @@ input[type=password]:focus {
     text-decoration: none;
     padding: 10px;
     border-radius: 5px;
+    cursor: pointer;
 }
 
 .welcomeImg {
 object-fit: scale-down;
+}
+
+.alternative-links {
+    display:flex;
+    justify-content: center;
+}
+#alt-link {
+color: white;
+    margin: 3px 20px;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+#demo-user {
+    font-size: 100%;
+    font-weight: normal;
+    color: white;
+    text-decoration: underline;
+    background: transparent;
+    border: none;
+}
+
+#demo-user:hover {
+    
+    cursor: pointer;
+}
+
+.login-signup a {
+    color: black;
+    text-decoration: none;
+    padding: 10px 15px;
+    border-radius: 5px;
 }

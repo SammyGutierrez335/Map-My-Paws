@@ -9,6 +9,7 @@ class SessionForm extends React.Component {
       email: ''
     };
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.demoUserLogin = this.demoUserLogin.bind(this)
   }
   //our state is tracking the input.
 
@@ -25,9 +26,15 @@ class SessionForm extends React.Component {
     this.props.processForm(user).then(() => { this.props.history.push("/my_home/#user_dashboard") })
   }
 
+  demoUserLogin(e) {
+    e.preventDefault();
+    const user = { username: "demodog", password: "woofwoof" };
+    this.props.loginDemoUser(user).then(() => { this.props.history.push("/my_home/#user_dashboard") })
+  }
+
   renderErrors() {
     return (
-      <ul>
+      <ul id="errors">
         {this.props.errors.map((error, i) => (
           <li key={`error-${i}`}>
             {error}
@@ -41,7 +48,7 @@ class SessionForm extends React.Component {
   //onSubmit={handleSubmit} is a convention 
   render() {
     let emailInput
-    if (this.props.formType === "signup") {
+    if (this.props.formType === "Signup") {
       emailInput =
         (
           <input type="text"
@@ -73,7 +80,10 @@ class SessionForm extends React.Component {
             />
             <input className="session-submit" type="submit" value={this.props.formType} />
             {this.renderErrors()}
-            {this.props.navLink}
+            <ul className="alternative-links">
+              <button id="demo-user" onClick={this.demoUserLogin}>Demo User Login</button>
+              {this.props.navLink}
+            </ul>
           </div>
         </form>
       </div>

@@ -7,15 +7,16 @@ import SessionForm from './session_form.jsx';
 //destruction = ({ errors })
 const mSTP = (state) => ({
     errors: state.errors.session, //
-    formType: 'login',
-    navLink: <Link to="/signup">Sign up instead</Link>,
+    formType: 'Login',
+    navLink: <Link id="alt-link" to="/signup">Sign Up Instead</Link>,
 })
 
 
 //why do directions say to pass in ownProps?
 const mDTP = (dispatch) => {
     return {
-        processForm: (user) => dispatch(login(user))
+        processForm: (user) => dispatch(login(user)),
+        loginDemoUser: (user) => dispatch(login(user))
     };
 };
 
