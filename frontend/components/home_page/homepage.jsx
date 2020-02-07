@@ -3,13 +3,13 @@
 import { render } from "react-dom"
 import React from 'react'
 
-class homepage extends React.Component {
+class Homepage extends React.Component {
 
 
     render() {
         return (
             <div className="home_page_window" >
-                <div id="home_page">Home Page</div>
+                <div id="previous_route_container">Previous Routes</div>
             </div>
         )
     }
@@ -17,4 +17,4 @@ class homepage extends React.Component {
 
 }
 
-export default homepage
+export default Homepage
