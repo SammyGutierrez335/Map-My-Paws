@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_01_29_183209) do
+ActiveRecord::Schema.define(version: 2020_02_19_215834) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -20,16 +20,6 @@ ActiveRecord::Schema.define(version: 2020_01_29_183209) do
     t.integer "friending_user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-  end
-
-  create_table "routes", force: :cascade do |t|
-    t.string "title", null: false
-    t.string "center_coords", null: false
-    t.integer "author_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["author_id"], name: "index_routes_on_author_id"
-    t.index ["title"], name: "index_routes_on_title", unique: true
   end
 
   create_table "users", force: :cascade do |t|
@@ -44,6 +34,15 @@ ActiveRecord::Schema.define(version: 2020_01_29_183209) do
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["session_token"], name: "index_users_on_session_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
+  end
+
+  create_table "walks", force: :cascade do |t|
+    t.string "title", null: false
+    t.integer "author_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["author_id"], name: "index_walks_on_author_id"
+    t.index ["title"], name: "index_walks_on_title", unique: true
   end
 
   create_table "waypoints", force: :cascade do |t|

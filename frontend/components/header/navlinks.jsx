@@ -8,7 +8,7 @@ class navlinks extends React.Component {
     render() {
         return (
             <div className="nav-links" >
-                <NavLink to="/routes">Routes</NavLink>
+                <NavLink to="/walks">Walks</NavLink>
                 <NavLink to="/friends">Friends</NavLink>
                 <NavLink to="/goals">Goals</NavLink>
             </div>

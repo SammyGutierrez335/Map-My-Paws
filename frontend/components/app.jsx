@@ -9,8 +9,8 @@ import { Link } from "react-router-dom"
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
 import homepage from './home_page/homepage.jsx'
 import Navlinks from './header/navlinks.jsx'
-import RoutesHome from './routes/home.jsx'
-import new_route from './routes/create.jsx'
+import WalksHome from './walks/home.jsx'
+import NewWalk from './walks/create.jsx'
 
 
 const App = () => (
@@ -26,8 +26,8 @@ const App = () => (
             <AuthRoute exact path="/login" component={LoginFormContainer} />
             <AuthRoute exact path="/signup" component={SignupFormContainer} />
             <ProtectedRoute exact path="/my_home/#user_dashboard" component={homepage} />
-            <Route exact path="/routes" component={RoutesHome} />
-            <ProtectedRoute exact path="/routes/create" component={new_route} />
+            <Route exact path="/walks" component={WalksHome} />
+            <ProtectedRoute exact path="/walks/create" component={NewWalk} />
         </Switch>
     </div>
 )
