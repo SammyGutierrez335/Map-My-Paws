@@ -4,7 +4,7 @@ const Toolbar = () => {
     return (
         <ul className="toolbar-container">
             <li>
-                <Link className="toolbar-button" to="/routes/create">Create A Route</Link>
+                <Link className="toolbar-button" to="/walks/create">Create A Walk</Link>
             </li>
         </ul>
     )

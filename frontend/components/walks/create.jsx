@@ -5,7 +5,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 
 
-class route extends React.Component {
+class Walk extends React.Component {
 
     constructor(props) {
         super(props);
@@ -13,6 +13,7 @@ class route extends React.Component {
         this.markers = []
         this.useCurrentPosition = this.useCurrentPosition.bind(this)
         this.setCurrentPosition = this.setCurrentPosition.bind(this)
+        this.saveRoute = this.saveRoute.bind(this)
         this.direction = new google.maps.DirectionsService();
         this.renderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
@@ -78,7 +79,7 @@ class route extends React.Component {
         }
         //adds marker to an array stored in state
         this.markers.push(marker)
-        // code will allow user to click on a marker to end route
+        // code will allow user to click on a marker to end walk
         // google.maps.event.addListener(marker, 'click', this.endRoute)
 
         //get the directions to display in the info panel ln:133
@@ -114,7 +115,7 @@ class route extends React.Component {
         let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
         this.setState({ currentPosition })
         this.map.setCenter(this.state.currentPosition)
-        this.map.setZoom(18)
+        this.map.setZoom(16)
     }
 
     setMapLocation() {
@@ -169,6 +170,9 @@ class route extends React.Component {
         });
     }
 
+    saveRoute() {
+        console.log("walk saved...")
+    }
     render() {
         let waypoints = this.state.waypoints
 
@@ -195,15 +199,15 @@ class route extends React.Component {
                         <br />
                     </article>
                     <div id="map-details-input">
-                        <label htmlFor="map-name">Name Your Route</label>
+                        <label htmlFor="map-name">Name Your Walk</label>
                         <div>
-                            <input type="text" id="route-name-input-field"
-                                placeholder="Name Your Route"
+                            <input type="text" id="walk-name-input-field"
+                                placeholder="Name Your Walk"
                                 value={this.state.routeName}
                                 onChange={this.update('routeName')}
                                 autoComplete="on" />
                         </div>
-                        <button onClick={this.saveRoute} className="search-button">Save Route</button>
+                        <button onClick={this.saveRoute} className="search-button">Save Walk</button>
                     </div>
                     <br />
                     <div id="directionsPanel"></div>
@@ -214,4 +218,4 @@ class route extends React.Component {
     }
 }
 
-export default route
+export default Walk

@@ -7,7 +7,7 @@ class RoutesHome extends React.Component {
     render() {
         return (
             <div className="home-page" >
-                <ProtectedRoute exact path="/routes" component={Toolbar} />
+                <ProtectedRoute exact path="/walks" component={Toolbar} />
                 <Homepage />
             </div>
         )

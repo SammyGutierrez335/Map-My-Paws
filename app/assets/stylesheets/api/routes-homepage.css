@@ -16,9 +16,12 @@
     display: flex;
     justify-content: center;
 }
-#previous_route_container {
+#previous_walk_container {
+    display: flex;
+    justify-content: center;
+    align-self: center;
     border: 10px solid black;
-    height: 50%;
-    width: 50%;
+    height: 85%;
+    width: 80%;
     Font: grey
 }
