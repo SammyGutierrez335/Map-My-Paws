@@ -26,9 +26,8 @@ Maps API Setup
     creating an instance of the Map class
 Registering the Listeners
     
-3 difficult things
-One of the difficult things was teh collection of the waypoints into the slice of state.
-Deleting Markers
+## Challenges faced during the development of this app.
+The collection of the waypoints into the slice of state.
+Having my right clicking (removal of markers/waypoints) update the route and slice of state.
 Passing in directions and having the map find and use the coordinates (reverseGeocoder)
-Polylines
-Having my right clicking (removal of markers/waypoints) update the route.
+Rendering Path Polylines
