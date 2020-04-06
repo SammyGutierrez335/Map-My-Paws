@@ -6,19 +6,17 @@ import { Link } from 'react-router-dom'
 
 
 class Walk extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = { waypoints: [], searchLocation: "", routeName: "" }
         this.markers = []
+        this.direction = new google.maps.DirectionsService();
         this.useCurrentPosition = this.useCurrentPosition.bind(this)
         this.setCurrentPosition = this.setCurrentPosition.bind(this)
         this.saveRoute = this.saveRoute.bind(this)
-        this.direction = new google.maps.DirectionsService();
         this.renderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
             polylineOptions: {
-                // icons: [false, { fillOpacity: 1, path: window.pawprints }, '25%', '25%'],
                 strokeColor: "#0000FF",
                 strokeOpacity: .5,
                 strokeWeight: 5,
@@ -42,15 +40,14 @@ class Walk extends React.Component {
     }
 
     registerListeners() {
-        //click adds waypoint
+        //left clicking adds waypoint
         google.maps.event.addListener(this.map, 'click', (event) => {
             let lat = event.latLng.lat()
             let lng = event.latLng.lng()
-            console.log(event.latLng)
             this.handleLeftClick([lat, lng]);
         });
 
-        //removes waypoint
+        //removes waypoint on rightclick
         google.maps.event.addListener(this.map, 'rightclick', (event) => {
             this.handleRightClick(this.state.waypoints.length - 1);
         });
@@ -61,15 +58,17 @@ class Walk extends React.Component {
         this.setState({ waypoints: [...this.state.waypoints, coords] }) //setstate, waypoint slice of state is merged with new coords(waypoint).
         let marker
         let position = { lat: coords[0], lng: coords[1] }
-        let map = this.map
+
         if (typeof this.state.waypoints[1] === 'undefined') {
+            //defaults first paw marker to green
             marker = new google.maps.Marker({
                 position: position,
-                map: map,
+                map: this.map,
                 icon: window.pawIconGreen,
                 clickable: true
             })
         } else {
+            //all other paw markers are blue
             marker = new google.maps.Marker({
                 position: { lat: coords[0], lng: coords[1] },
                 map: this.map,
@@ -77,26 +76,35 @@ class Walk extends React.Component {
                 draggable: false,
             })
         }
+
         //adds marker to an array stored in state
         this.markers.push(marker)
-        // code will allow user to click on a marker to end walk
-        // google.maps.event.addListener(marker, 'click', this.endRoute)
 
-        //get the directions to display in the info panel ln:133
+
+        // code will allow user to click on a marker to end walk
+        google.maps.event.addListener(marker, 'click', this.saveRoute)
+
+        //get the directions to display in the info panels
         this.getDirections()
     }
 
     handleRightClick(index) {
+        //removes last waypoint from state
         this.setState(state => {
             const waypoints = state.waypoints.filter((waypoint, j) => index !== j)
-
             return {
                 waypoints
             }
         })
+        //removes last marker
         this.markers.pop().setMap(null);
+
+        //get the directions to display in the info panels
         this.getDirections()
     }
+
+
+
     //grabs the location coordinates of the device
     useCurrentPosition() {
         let options = {
@@ -110,6 +118,8 @@ class Walk extends React.Component {
         navigator.geolocation.getCurrentPosition(this.setCurrentPosition, error, options)
     }
 
+
+
     setCurrentPosition(GeolocationPostition) {
         //adjustments for increased accuracy
         let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
@@ -118,6 +128,9 @@ class Walk extends React.Component {
         this.map.setZoom(16)
     }
 
+
+
+    //recenters map to address provided
     setMapLocation() {
         let geocoder = new google.maps.Geocoder()
         geocoder.geocode({ address: this.state.searchLocation }, (result) => {
@@ -133,20 +146,25 @@ class Walk extends React.Component {
 
     getDirections() {
         const renderer = this.renderer
-        this.renderer.setMap(this.map)
-        this.renderer.setPanel(document.getElementById('directionsPanel'))
         let waypoints = this.state.waypoints;
+        
+        renderer.setMap(this.map)
+        renderer.setPanel(document.getElementById('directionsPanel'))
+        
         if (waypoints.length > 1) {
             let origin = { lat: waypoints[0][0], lng: waypoints[0][1] };
             let lastWaypoint = waypoints[waypoints.length - 1]
             let destination = { lat: lastWaypoint[0], lng: lastWaypoint[1] };
             let middlePointsArr = []
+
+            //iterates through middle waypoints and stores into middlePointsarr
             for (let i = 1; i < waypoints.length - 1; i++) {
                 middlePointsArr.push({
                     location: { lat: waypoints[i][0], lng: waypoints[i][1] },
                     stopover: false
                 })
             }
+
             this.direction.route({
                 origin: origin,
                 destination: destination,
@@ -164,20 +182,25 @@ class Walk extends React.Component {
         }
     }
 
+
+
     update(field) {
         return e => this.setState({
             [field]: e.currentTarget.value
         });
     }
 
+
+
     saveRoute() {
-        console.log("walk saved...")
+        //saves route to backend
+        console.log(this.state.waypoints)
+        console.log(this.state.routeName)
+        console.log(this.markers)
     }
+    
     render() {
         let waypoints = this.state.waypoints
-
-        const waypointslis = waypoints.map((waypoint, i) =>
-            <li key={i}>{waypoint}</li>)
 
         return (
             <div className="mapcontainer" >
@@ -205,7 +228,7 @@ class Walk extends React.Component {
                                 placeholder="Name Your Walk"
                                 value={this.state.routeName}
                                 onChange={this.update('routeName')}
-                                autoComplete="on" />
+                                autoComplete="complete?" />
                         </div>
                         <button onClick={this.saveRoute} className="search-button">Save Walk</button>
                     </div>
