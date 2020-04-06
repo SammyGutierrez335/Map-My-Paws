@@ -4,7 +4,7 @@ import { render } from "react-dom"
 import { NavLink } from 'react-router-dom'
 import React from 'react'
 
-class navlinks extends React.Component {
+class Navlinks extends React.Component {
     render() {
         return (
             <div className="nav-links" >
@@ -16,4 +16,4 @@ class navlinks extends React.Component {
     }
 }
 
-export default navlinks
+export default Navlinks

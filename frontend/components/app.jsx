@@ -2,12 +2,15 @@
 
 import React from "react";
 import Splashpage from './splash/splashpage.jsx'
-
+import Header from './header/header.jsx'
+import Footer from './footer/footer.jsx'
 
 
 const App = () => (
-    <div >
+    <div className="main">
+        <Header />
         <Splashpage />
+        <Footer />
     </div>
 )
 

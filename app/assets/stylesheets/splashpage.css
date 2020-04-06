@@ -1,2 +1,16 @@
+.main {
+    display: flex;
+    flex-direction: column;
+    align-content: space-between;
+     min-height: 680px;
+    min-width: 944px;
+
+}
+
 .splashpage {
+    height: 80%;
+    background-image: url(https://images.theconversation.com/files/223380/original/file-20180615-85830-1m127xe.jpg?ixlib=rb-1.1.0&q=45&auto=format&w=926&fit=clip);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
