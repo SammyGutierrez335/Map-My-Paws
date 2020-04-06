@@ -1,0 +1,28 @@
+version: "3"
+services:
+  db:
+    image: postgres
+    volumes:
+      - ./tmp/db:/var/lib/postgresql/data
+    environment:
+      - DATABASE_URL=postgres://hcguurzuzwvnnx:8a9946a7c6b06045435dff64edd00efb8b5c547c1739423015a973f3c8dfce66@ec2-54-174-229-152.compute-1.amazonaws.com:5432/d6rk33p5ugb7ul
+      - LANG=en_US.UTF-8
+      - RACK_ENV=production
+      - RAILS_ENV=production
+      - RAILS_LOG_TO_STDOUT=enabled
+      - RAILS_MASTER_KEY=b5cc933afbab247c087c4500395326f9
+      - RAILS_SERVE_STATIC_FILES=enabled
+      - SECRET_KEY_BASE=c0dc29fc2c1e08cfa0feb9e5b483d8417e96024a21ac7a95c966250020fafd60eb1dda9dcff0d858b37a540def04dd669605ace7ebb1ab0d6f0a2a427c33190c
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: sammygutierrez335/map-my-paws
+    volumes:
+      - .:/my_app
+    ports:
+      - "3000:3000"
+    depends_on:
+      - db
+    environment:
+      DATABASE_URL: postgres://postgres@db
