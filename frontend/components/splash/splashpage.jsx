@@ -8,7 +8,7 @@ import LoginFormContainer from "../session_form/login_form_container"
 import SignupFormContainer from "../session_form/signup_form_container"
 
 import { AuthRoute, ProtectedRoute } from '../../util/route_util';
-import homepage from '../home_page/homepage.jsx'
+import Homepage from '../home_page/homepage.jsx'
 
 import WalksHome from '../walks/home.jsx'
 import NewWalk from '../walks/create.jsx'
@@ -32,7 +32,7 @@ class Splashpage extends React.Component {
                 <Switch>
                     <AuthRoute exact path="/login" component={LoginFormContainer} />
                     <AuthRoute exact path="/signup" component={SignupFormContainer} />
-                    <ProtectedRoute exact path="/my_home/#user_dashboard" component={homepage} />
+                    <ProtectedRoute exact path="/my_home/#user_dashboard" component={Homepage} />
                     <ProtectedRoute exact path="/walks" component={WalksHome} />
                     <ProtectedRoute exact path="/walks/create" component={NewWalk} />
                 </Switch>

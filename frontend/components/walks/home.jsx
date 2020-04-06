@@ -3,7 +3,7 @@ import { ProtectedRoute } from '../../util/route_util'
 import Homepage from '../home_page/homepage.jsx'
 import Toolbar from './toolbar.jsx'
 
-class RoutesHome extends React.Component {
+class WalksHome extends React.Component {
     render() {
         return (
             <div className="home-page" >
@@ -16,4 +16,4 @@ class RoutesHome extends React.Component {
 
 }
 
-export default RoutesHome
+export default WalksHome
