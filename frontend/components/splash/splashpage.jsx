@@ -33,7 +33,7 @@ class Splashpage extends React.Component {
                     <AuthRoute exact path="/login" component={LoginFormContainer} />
                     <AuthRoute exact path="/signup" component={SignupFormContainer} />
                     <ProtectedRoute exact path="/my_home/#user_dashboard" component={homepage} />
-                    <Route exact path="/walks" component={WalksHome} />
+                    <ProtectedRoute exact path="/walks" component={WalksHome} />
                     <ProtectedRoute exact path="/walks/create" component={NewWalk} />
                 </Switch>
             </div>
