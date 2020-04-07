@@ -1,5 +1,3 @@
-//link buttons to assist in navigation
-
 import { render } from "react-dom"
 import React from 'react'
 
