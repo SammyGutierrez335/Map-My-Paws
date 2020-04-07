@@ -96,6 +96,7 @@ class Walk extends React.Component {
 
         //get the directions to display in the info panels
         this.getDirections()
+        debugger
     }
 
     handleRightClick(index) {
@@ -266,6 +267,7 @@ class Walk extends React.Component {
                         {this.state.routeDetailsToggled ? <i className="fas fa-caret-down expand-button"></i> : <i className="fas fa-caret-right expand-button"></i> }
                         Route Details
                     </h3>
+                    {this.renderRouteDetails()}
                     <h3 onClick={this.toggleRouteDirections}>
                         {this.state.routeDirectionsToggled ? <i className="fas fa-caret-down expand-button" ></i> : <i className="fas fa-caret-right expand-button"></i>}
                         Route Directions
