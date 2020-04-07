@@ -41,6 +41,6 @@ table {
 	border-collapse: collapse;
 	border-spacing: 0;
 }
-li a {
+a {
 	text-decoration: none;
 }

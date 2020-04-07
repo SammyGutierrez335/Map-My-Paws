@@ -1,16 +1,8 @@
 //home page that all users can see
 import { render } from "react-dom"
+import {Link} from "react-router-dom"
 import React from 'react'
-import { Route, Switch } from "react-router-dom"
 
-import LoginFormContainer from "../session_form/login_form_container"
-import SignupFormContainer from "../session_form/signup_form_container"
-
-import { AuthRoute, ProtectedRoute } from '../../util/route_util';
-import Homepage from '../home_page/homepage.jsx'
-
-import WalksHome from '../walks/home.jsx'
-import NewWalk from '../walks/create.jsx'
 
 
 class Splashpage extends React.Component {
@@ -19,14 +11,38 @@ class Splashpage extends React.Component {
     render() {
         return (
             <div className="splashpage" >
-                <Switch>
-                    <AuthRoute exact path="/login" component={LoginFormContainer} />
-                    <AuthRoute exact path="/signup" component={SignupFormContainer} />
-                    <ProtectedRoute exact path="/my_home/#user_dashboard" component={Homepage} />
-                    <ProtectedRoute exact path="/walks" component={WalksHome} />
-                    <ProtectedRoute exact path="/walks/create" component={NewWalk} />
-                </Switch>
+                <div className="splashpage-top">
+
+                <h2 className="splash-title"> 
+                    <hr className="accent"></hr>
+                        <span>Healthier Lives <br />With every Walk</span>
+                        <hr className="accent"></hr>
+                </h2>
+                <p className="splash-subtitle"> 
+                <span>
+                    A new fitness community of pet parents with the goal
+                    of leading healthier,happier lives for their pets.
+                    </span>
+                </p>
+                <div className="splash-session-links">
+                    <div className="signup-button-container">
+                        <Link className="signup-button"to="/signup">
+                            <span>
+                                Sign up!
+                            </span>
+                        </Link>
+                    </div>
+                    <div className="login-button-container"> 
+                        <p className="login-button-question">
+                            <span>Already Signed Up?</span>
+                        </p>
+                        <Link className="login-button" to="/login">
+                            Log In
+                        </Link>
+                    </div>
+                </div>
             </div>
+                </div>
         )
     }
 

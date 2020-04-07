@@ -8,14 +8,14 @@
     width: 100%;
 }
 
-.home_page_window {
-    margin-left: 1%;
+.home-page-window {
     height: 720px;
     width: 1750px;
     background: white;
     display: flex;
     justify-content: center;
 }
+
 #previous_walk_container {
     display: flex;
     justify-content: center;

@@ -7,7 +7,7 @@ import { Link } from "react-router-dom"
 class navlinks extends React.Component {
     render() {
         return (
-            < Link to="/my_home/#user_dashboard" >
+            < Link to="/user_dashboard" >
                 <img src={window.logo} />
             </Link >
         )

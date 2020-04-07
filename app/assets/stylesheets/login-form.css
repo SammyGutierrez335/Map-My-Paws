@@ -3,6 +3,10 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
+    background-image: url("https://www.rei.com/dam/kona_hiking_with_dogs.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
 }
 
 .login-form-box {
