@@ -263,11 +263,11 @@ class Walk extends React.Component {
                         <br />
                     </div>
                     <h3 onClick={this.toggleRouteDetails}>
-                        {this.state.routeDetailsToggled ? <i className="fas fa-caret-down"></i>: <i className="fas fa-caret-right"></i> }
+                        {this.state.routeDetailsToggled ? <i className="fas fa-caret-down expand-button"></i> : <i className="fas fa-caret-right expand-button"></i> }
                         Route Details
                     </h3>
                     <h3 onClick={this.toggleRouteDirections}>
-                        {this.state.routeDirectionsToggled ? <i className="fas fa-caret-down"></i> : <i className="fas fa-caret-right"></i>}
+                        {this.state.routeDirectionsToggled ? <i className="fas fa-caret-down expand-button" ></i> : <i className="fas fa-caret-right expand-button"></i>}
                         Route Directions
                     </h3>
                     {this.renderRouteDirections()}                    

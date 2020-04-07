@@ -26,7 +26,6 @@
 }
 
 #info-panels {
-    margin-left: 3%;
     height: 100%;
     width:25%;
     background: white;
@@ -47,11 +46,14 @@
     background-color: #efefef;
 }
 .expand-button {
-    content: '\25b8';
-    background-color: #efefef;
-    cursor: pointer;
-    margin: 0;
-    padding: 0;
+    background-color: #fff;
+    border-radius: 5px;
+    color: #2f98d9;
+    height: 17px;
+    margin-right: 6px;
+    text-align: center;
+    vertical-align: top;
+    width: 17px;
 }
 
 #map-details-input {
