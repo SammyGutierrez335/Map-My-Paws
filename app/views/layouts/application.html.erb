@@ -14,6 +14,7 @@
     <script type="text/javascript">window.pawIconGreen = "<%= image_url('paw-icon-green.png') %>";</script>
     <script type="text/javascript">window.locationIcon = "<%= image_url('location-icon.png') %>";</script>
     <script type="text/javascript">window.pawprints = "<%= image_url('pawprints.svg') %>";</script>
+    <script src="https://kit.fontawesome.com/f391d4e959.js" crossorigin="anonymous"></script>
     <title>Map My Paws</title>
     <%= javascript_include_tag "https://maps.googleapis.com/maps/api/js?key=#{Rails.application.credentials.google[:api_key]}&libraries=places" %>
     <style type="text/css">

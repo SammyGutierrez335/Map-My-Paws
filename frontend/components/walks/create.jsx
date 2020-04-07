@@ -8,12 +8,22 @@ import { Link } from 'react-router-dom'
 class Walk extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { waypoints: [], searchLocation: "", routeName: "" }
+        this.state = { 
+            waypoints: [], 
+            searchLocation: "", 
+            routeName: "",
+            routeDetailsToggled: false,
+            routeDirectionsToggled: false
+        }
         this.markers = []
-        this.direction = new google.maps.DirectionsService();
         this.useCurrentPosition = this.useCurrentPosition.bind(this)
         this.setCurrentPosition = this.setCurrentPosition.bind(this)
+        this.renderRouteDetails = this.renderRouteDetails.bind(this)
+        this.toggleRouteDetails = this.toggleRouteDetails.bind(this)
+        this.renderRouteDirections = this.renderRouteDirections.bind(this)
+        this.toggleRouteDirections = this.toggleRouteDirections.bind(this)
         this.saveRoute = this.saveRoute.bind(this)
+        this.direction = new google.maps.DirectionsService();
         this.renderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
             polylineOptions: {
@@ -182,7 +192,27 @@ class Walk extends React.Component {
         }
     }
 
+    renderRouteDetails(){
+        if(this.state.routeDetailsToggled) {
+            return <div id="map-details-input">
+                    <label htmlFor="map-name">Name Your Walk</label>
+                        <div>
+                            <input type="text" id="walk-name-input-field"
+                                placeholder="Name Your Walk"
+                                value={this.state.routeName}
+                                onChange={this.update('routeName')}
+                                autoComplete="complete?" />
+                        </div>
+                     <button onClick={this.saveRoute} className="search-button">Save Walk</button>
+                    </div>
+        } else {
+            return <div></div>
+        }
+    }
 
+    renderRouteDirections(){
+        return this.state.routeDirectionsToggled ? <div id="directionsPanel"></div> : null
+    }
 
     update(field) {
         return e => this.setState({
@@ -190,6 +220,17 @@ class Walk extends React.Component {
         });
     }
 
+    toggleRouteDetails(){
+        return this.setState({
+            routeDetailsToggled: !this.state.routeDetailsToggled
+        })
+    }
+
+    toggleRouteDirections() {
+        return this.setState({
+            routeDirectionsToggled: !this.state.routeDirectionsToggled
+        })
+    }
 
 
     saveRoute() {
@@ -205,7 +246,7 @@ class Walk extends React.Component {
         return (
             <div className="mapcontainer" >
                 <div id="info-panels">
-                    <article id="map-location-input">
+                    <div id="map-location-input">
                         <label htmlFor="location-input-box">Choose Map Location</label>
                         <div id="location-input-container">
                             <input type="text" id="location-input-field"
@@ -220,20 +261,16 @@ class Walk extends React.Component {
                         </div>
                         <button className="search-button" onClick={this.setMapLocation.bind(this)}>Search</button>
                         <br />
-                    </article>
-                    <div id="map-details-input">
-                        <label htmlFor="map-name">Name Your Walk</label>
-                        <div>
-                            <input type="text" id="walk-name-input-field"
-                                placeholder="Name Your Walk"
-                                value={this.state.routeName}
-                                onChange={this.update('routeName')}
-                                autoComplete="complete?" />
-                        </div>
-                        <button onClick={this.saveRoute} className="search-button">Save Walk</button>
                     </div>
-                    <br />
-                    <div id="directionsPanel"></div>
+                    <h3 onClick={this.toggleRouteDetails}>
+                        {this.state.routeDetailsToggled ? <i className="fas fa-caret-down expand-button"></i> : <i className="fas fa-caret-right expand-button"></i> }
+                        Route Details
+                    </h3>
+                    <h3 onClick={this.toggleRouteDirections}>
+                        {this.state.routeDirectionsToggled ? <i className="fas fa-caret-down expand-button" ></i> : <i className="fas fa-caret-right expand-button"></i>}
+                        Route Directions
+                    </h3>
+                    {this.renderRouteDirections()}                    
                 </div>
                 <div id="map"></div>
             </div>
