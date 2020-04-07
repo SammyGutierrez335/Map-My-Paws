@@ -8,12 +8,19 @@ import { Link } from 'react-router-dom'
 class Walk extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { waypoints: [], searchLocation: "", routeName: "" }
+        this.state = { 
+            waypoints: [], 
+            searchLocation: "", 
+            routeName: "",
+            routeDetailsToggled: false
+        }
         this.markers = []
-        this.direction = new google.maps.DirectionsService();
         this.useCurrentPosition = this.useCurrentPosition.bind(this)
         this.setCurrentPosition = this.setCurrentPosition.bind(this)
+        this.renderRouteDetails = this.renderRouteDetails.bind(this)
+        this.handleToggle = this.handleToggle.bind(this)
         this.saveRoute = this.saveRoute.bind(this)
+        this.direction = new google.maps.DirectionsService();
         this.renderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
             polylineOptions: {
@@ -182,7 +189,24 @@ class Walk extends React.Component {
         }
     }
 
+    renderRouteDetails(){
+        if(this.state.routeDetailsToggled) {
+            return <div id="map-details-input">
+                    <label htmlFor="map-name">Name Your Walk</label>
+                        <div>
+                            <input type="text" id="walk-name-input-field"
+                                placeholder="Name Your Walk"
+                                value={this.state.routeName}
+                                onChange={this.update('routeName')}
+                                autoComplete="complete?" />
+                        </div>
+                     <button onClick={this.saveRoute} className="search-button">Save Walk</button>
+                    </div>
+        } else {
+            return <div></div>
+        }
 
+    }
 
     update(field) {
         return e => this.setState({
@@ -190,6 +214,11 @@ class Walk extends React.Component {
         });
     }
 
+    handleToggle(){
+        return this.setState({
+            routeDetailsToggled: !this.state.routeDetailsToggled
+        })
+    }
 
 
     saveRoute() {
@@ -205,7 +234,7 @@ class Walk extends React.Component {
         return (
             <div className="mapcontainer" >
                 <div id="info-panels">
-                    <article id="map-location-input">
+                    <div id="map-location-input">
                         <label htmlFor="location-input-box">Choose Map Location</label>
                         <div id="location-input-container">
                             <input type="text" id="location-input-field"
@@ -220,18 +249,12 @@ class Walk extends React.Component {
                         </div>
                         <button className="search-button" onClick={this.setMapLocation.bind(this)}>Search</button>
                         <br />
-                    </article>
-                    <div id="map-details-input">
-                        <label htmlFor="map-name">Name Your Walk</label>
-                        <div>
-                            <input type="text" id="walk-name-input-field"
-                                placeholder="Name Your Walk"
-                                value={this.state.routeName}
-                                onChange={this.update('routeName')}
-                                autoComplete="complete?" />
-                        </div>
-                        <button onClick={this.saveRoute} className="search-button">Save Walk</button>
                     </div>
+                    <h3 onClick={this.handleToggle}>
+                        {this.state.routeDetailsToggled ? <i className="fas fa-caret-down"></i>: <i className="fas fa-caret-right"></i> }
+                        Route Details
+                    </h3>
+                    {this.renderRouteDetails()}
                     <br />
                     <div id="directionsPanel"></div>
                 </div>

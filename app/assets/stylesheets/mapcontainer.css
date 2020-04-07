@@ -12,7 +12,7 @@
     justify-content: left;
 }
 .location-icon img{
-    padding: 0 0 0 10px;
+    padding: 0 10px 0 10px;
     max-height: 25px;
     max-width: 25px;
     object-fit: scale-down;
@@ -36,6 +36,22 @@
     display: flex;
     flex-direction: column;
     justify-content: space-around;
+}
+
+#info-panels h3{
+    padding: 5px 15px;
+    color: #444;
+    font-weight: 600;
+    font-size: 14px;
+    cursor: pointer;
+    background-color: #efefef;
+}
+.expand-button {
+    content: '\25b8';
+    background-color: #efefef;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
 }
 
 #map-details-input {
