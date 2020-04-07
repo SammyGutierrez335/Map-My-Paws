@@ -12,13 +12,16 @@ class Walk extends React.Component {
             waypoints: [], 
             searchLocation: "", 
             routeName: "",
-            routeDetailsToggled: false
+            routeDetailsToggled: false,
+            routeDirectionsToggled: false
         }
         this.markers = []
         this.useCurrentPosition = this.useCurrentPosition.bind(this)
         this.setCurrentPosition = this.setCurrentPosition.bind(this)
         this.renderRouteDetails = this.renderRouteDetails.bind(this)
-        this.handleToggle = this.handleToggle.bind(this)
+        this.toggleRouteDetails = this.toggleRouteDetails.bind(this)
+        this.renderRouteDirections = this.renderRouteDirections.bind(this)
+        this.toggleRouteDirections = this.toggleRouteDirections.bind(this)
         this.saveRoute = this.saveRoute.bind(this)
         this.direction = new google.maps.DirectionsService();
         this.renderer = new google.maps.DirectionsRenderer({
@@ -205,7 +208,10 @@ class Walk extends React.Component {
         } else {
             return <div></div>
         }
+    }
 
+    renderRouteDirections(){
+        return this.state.routeDirectionsToggled ? <div id="directionsPanel"></div> : null
     }
 
     update(field) {
@@ -214,9 +220,15 @@ class Walk extends React.Component {
         });
     }
 
-    handleToggle(){
+    toggleRouteDetails(){
         return this.setState({
             routeDetailsToggled: !this.state.routeDetailsToggled
+        })
+    }
+
+    toggleRouteDirections() {
+        return this.setState({
+            routeDirectionsToggled: !this.state.routeDirectionsToggled
         })
     }
 
@@ -250,13 +262,15 @@ class Walk extends React.Component {
                         <button className="search-button" onClick={this.setMapLocation.bind(this)}>Search</button>
                         <br />
                     </div>
-                    <h3 onClick={this.handleToggle}>
+                    <h3 onClick={this.toggleRouteDetails}>
                         {this.state.routeDetailsToggled ? <i className="fas fa-caret-down"></i>: <i className="fas fa-caret-right"></i> }
                         Route Details
                     </h3>
-                    {this.renderRouteDetails()}
-                    <br />
-                    <div id="directionsPanel"></div>
+                    <h3 onClick={this.toggleRouteDirections}>
+                        {this.state.routeDirectionsToggled ? <i className="fas fa-caret-down"></i> : <i className="fas fa-caret-right"></i>}
+                        Route Directions
+                    </h3>
+                    {this.renderRouteDirections()}                    
                 </div>
                 <div id="map"></div>
             </div>
