@@ -1,4 +1,5 @@
 class Api::WaypointsController < ApplicationController
+
    def create
     @waypoint = Waypoint.new(waypoint_params)
 

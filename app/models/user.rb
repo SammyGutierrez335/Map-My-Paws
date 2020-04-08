@@ -6,7 +6,7 @@ class User < ApplicationRecord
   validates :password_digest, :session_token, presence: true
   validates :password, length: { minimum: 6 }, allow_nil: true
 
-  has_many :walks
+  has_many :walks, dependent: :destroy
 
   # This allows us to run methods before running validations
   # In this case, we need to have a session_token when a user is first created

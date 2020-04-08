@@ -1,5 +1,5 @@
 class Walk < ApplicationRecord
-    has_many :waypoints
-    belongs_to :user
+    has_many :waypoints, dependent: :destroy
 
+    belongs_to :user
 end
