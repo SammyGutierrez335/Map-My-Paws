@@ -1,12 +1,23 @@
 class Api::WalksController < ApplicationController
-    def create
-      @walk = Walk.new(walk_params)
+    
+  def index
+    @walks = Walk.all
+  end
 
-      if @walk.save
-          render "api/walk/show"
-      else
-          render json: @walk.errors.full_messages, status: 422
-      end
+  def show
+    @walk = Walk.find(params[:id])
+  end
+
+  def create
+    @walk = Walk.new(walk_params)
+
+    if @walk.save
+        render "api/walk/show"
+    else
+        render json: @walk.errors.full_messages, status: 422
+    end
+
+      
   end
 
   private
