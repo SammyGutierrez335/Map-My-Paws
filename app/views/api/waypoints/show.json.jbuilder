@@ -1,0 +1,1 @@
+json.extract! @waypoint, :walk_id, :latitude, :longitude

@@ -1,11 +1,13 @@
 class Api::WalksController < ApplicationController
     
   def index
-    @walks = Walk.all
+    @walks = Walk.params[:author_id])
+    render :index
   end
 
   def show
     @walk = Walk.find(params[:id])
+    render "api/walk/show"
   end
 
   def create
@@ -15,14 +17,12 @@ class Api::WalksController < ApplicationController
         render "api/walk/show"
     else
         render json: @walk.errors.full_messages, status: 422
-    end
-
-      
+    end   
   end
 
   private
 
   def walk_params
-    params.require(:walk).permit(:title, :center_coords, :author_id)
+    params.require(:walk).permit(:title, :author_id)
   end
 end
