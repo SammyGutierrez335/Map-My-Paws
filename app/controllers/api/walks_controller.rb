@@ -12,6 +12,7 @@ class Api::WalksController < ApplicationController
 
   def create
     @walk = Walk.new(walk_params)
+    @walk.author_id = params[:user_id]
 
     if @walk.save
         render "api/walk/show"
@@ -23,6 +24,6 @@ class Api::WalksController < ApplicationController
   private
 
   def walk_params
-    params.require(:walk).permit(:title, :author_id)
+    params.require(:walk).permit(:title)
   end
 end
