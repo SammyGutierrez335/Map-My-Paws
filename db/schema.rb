@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_04_07_185557) do
+ActiveRecord::Schema.define(version: 2020_04_14_211223) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -49,7 +49,7 @@ ActiveRecord::Schema.define(version: 2020_04_07_185557) do
     t.decimal "longitude", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["walk_id"], name: "index_waypoints_on_walk_id", unique: true
+    t.index ["walk_id"], name: "index_waypoints_on_walk_id"
   end
 
 end
