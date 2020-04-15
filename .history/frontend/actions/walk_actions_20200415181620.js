@@ -8,10 +8,11 @@ export const receiveWalk = walk => ({
     walk
 })
 
-export const receiveWalks = walks => ({
-    type: RECEIVE_WALKS,
+export const receiveWalks = walks => {
+    return {type: RECEIVE_WALKS,
     walks
-})
+    }
+    }
 
 // returns a thunk which calls the APIUtil and then dispatches receiveWaypoints
 export const createWalk = (walk) => dispatch => (
@@ -20,8 +21,8 @@ export const createWalk = (walk) => dispatch => (
     ))
 );
 
-export const fetchWalks = () => dispatch => (
-    APIUtil.fetchWalks().then(walks => (
+export const fetchWalks = (authorId) => dispatch => (
+    APIUtil.fetchWalks(authorId).then(walks => (
         dispatch(receiveWalks(walks))
     ))
 )

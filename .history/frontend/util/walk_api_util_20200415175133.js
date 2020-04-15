@@ -8,11 +8,13 @@ export const createWalk = (walk) => {
 //data is a param that is passed to backend
 
 export const fetchWalks = (authorId) => {
+    debugger
     return $.ajax({
         url: '/api/walks/',
         method: 'GET',
+        data: { authorId }
     })
 }
 
 
-//hits backend
+//hits

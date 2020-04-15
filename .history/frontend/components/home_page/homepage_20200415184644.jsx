@@ -16,21 +16,16 @@ class Homepage extends React.Component {
     }
 
     renderWalks(){
-        return <div id="previous_walks_container">
-        {this.state.walks.forEach(walk => {
-            return <div>I am a walk</div>
-        })}
-
-            Previous Walks</div>
+        return 
     }
 
     render() {
         return (
             <div className="home-page-window" >
-               
+                <div id="previous_walks_container">
                     {this.renderWalks()}
                     
-                   
+                    Previous Walks</div>
             </div>
         )
     }

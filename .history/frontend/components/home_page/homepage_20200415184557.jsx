@@ -10,27 +10,22 @@ class Homepage extends React.Component {
         this.state = {}
     }
 
-    componentDidMount() {
-        this.setState({walks: this.props.fetchWalks()})
-        //access this particular instance of the Map class
-    }
+    // componentDidMount() {
+    //     this.setState({walks: this.props.fetchWalks()})
+    //     //access this particular instance of the Map class
+    // }
 
     renderWalks(){
-        return <div id="previous_walks_container">
-        {this.state.walks.forEach(walk => {
-            return <div>I am a walk</div>
-        })}
-
-            Previous Walks</div>
+        console.log("--->", this.state.walks)
     }
 
     render() {
         return (
             <div className="home-page-window" >
-               
+                <div id="previous_walk_container">
                     {this.renderWalks()}
                     
-                   
+                    Previous Walks</div>
             </div>
         )
     }

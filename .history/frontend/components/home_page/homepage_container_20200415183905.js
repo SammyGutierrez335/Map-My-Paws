@@ -5,7 +5,6 @@ import Homepage from "./homepage.jsx"
 
 //pass createWalk as a function that we can use inside this component
 const mSTP = state => {
-    debugger
     return {
         walks: state.entities.walks
     };

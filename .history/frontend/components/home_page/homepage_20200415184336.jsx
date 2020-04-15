@@ -6,7 +6,7 @@ import React from 'react'
 class Homepage extends React.Component {
     constructor(props) {
         super(props);
-        // this.renderWalks = this.renderWalks.bind(this)
+        this.renderWalks = this.renderWalks.bind(this)
         this.state = {}
     }
 
@@ -16,21 +16,16 @@ class Homepage extends React.Component {
     }
 
     renderWalks(){
-        return <div id="previous_walks_container">
-        {this.state.walks.forEach(walk => {
-            return <div>I am a walk</div>
-        })}
-
-            Previous Walks</div>
+        console.log("--->", this.state.walks)
     }
 
     render() {
         return (
             <div className="home-page-window" >
-               
+                <div id="previous_walk_container">
                     {this.renderWalks()}
                     
-                   
+                    Previous Walks</div>
             </div>
         )
     }

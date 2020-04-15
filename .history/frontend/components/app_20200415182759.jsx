@@ -10,7 +10,7 @@ import LoginFormContainer from "./session_form/login_form_container"
 import SignupFormContainer from "./session_form/signup_form_container"
 
 import { AuthRoute, ProtectedRoute } from '../util/route_util';
-import HomepageContainer from './home_page/homepage_container.js'
+import HomepageContainer from './home_page/homepage_container.jsx'
 
 import WalksHome from './walks/home.jsx'
 import CreateContainer from './walks/create_container.js'

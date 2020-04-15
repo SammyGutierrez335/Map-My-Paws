@@ -20,8 +20,8 @@ export const createWalk = (walk) => dispatch => (
     ))
 );
 
-export const fetchWalks = () => dispatch => (
-    APIUtil.fetchWalks().then(walks => (
+export const fetchWalks = (authorId) => dispatch => (
+    APIUtil.fetchWalks(authorId).then(walks => (
         dispatch(receiveWalks(walks))
     ))
 )

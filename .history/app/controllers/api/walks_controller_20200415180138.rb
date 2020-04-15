@@ -1,6 +1,6 @@
 class Api::WalksController < ApplicationController
   def index
-    @walks = Walk.where(author_id: current_user().id)
+    @walks = Walk.where(author_id: params[:author_id])
     render :index
   end
 
@@ -22,6 +22,6 @@ class Api::WalksController < ApplicationController
   private
 
   def walk_params
-    params.require(:walk).permit(:title, :author_id)
+    params.require(:walk).permit(:title)
   end
 end
