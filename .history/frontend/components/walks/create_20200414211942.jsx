@@ -254,7 +254,7 @@ export default class Walk extends React.Component {
                                 onChange={this.update('searchLocation')}
                                 autoComplete="off" />
                             <a className="location-icon" title="Use My Current Location">
-                                {/* icon to set map to current location*/}
+                                {/* icon to set map to current location 103*/}
                                 <img src={window.locationIcon} onClick={this.useCurrentPosition}></img>
                             </a>
                         </div>
