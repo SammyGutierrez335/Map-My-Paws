@@ -1,0 +1,34 @@
+.home-page {
+    height: 100%;
+    width: 100%;
+}
+
+.home-page {
+    height: 100%;
+    width: 100%;
+}
+
+.home-page-window {
+    height: 720px;
+    width: 1750px;
+    background: white;
+    display: flex;
+    justify-content: center;
+}
+
+#previous-walk-container {
+        display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    align-self: center;
+    border: 10px solid black;
+    height: 85%;
+    width: 80%;
+    Font: grey;
+}
+
+.walk-thumbnail{
+    height: 100px;
+    width: 100px;
+    background: green;
+}

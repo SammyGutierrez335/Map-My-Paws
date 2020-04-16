@@ -32,7 +32,7 @@ class Homepage extends React.Component {
             <div className="home-page-window" >
                 <div id="previous-walk-container">
                     <header>Previous Walks</header>
-                    <div className="walk-thumbnails-container">
+                    <div className="previous-walk-thumbnails">
                         {this.renderWalks()}
                     </div>
                 </div>

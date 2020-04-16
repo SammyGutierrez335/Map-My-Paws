@@ -31,11 +31,8 @@ class Homepage extends React.Component {
         return (
             <div className="home-page-window" >
                 <div id="previous-walk-container">
-                    <header>Previous Walks</header>
-                    <div className="walk-thumbnails-container">
-                        {this.renderWalks()}
-                    </div>
-                </div>
+                    {this.renderWalks()}
+                    Previous Walks</div>
             </div>
         )
     }

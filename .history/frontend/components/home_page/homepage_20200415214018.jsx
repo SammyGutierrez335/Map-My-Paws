@@ -16,26 +16,23 @@ class Homepage extends React.Component {
 
     renderWalks(){
         if(this.state.walks) {
-            console.log("------> has walks")
-         let walkDivs = this.state.walks.map(walk => {
-            return <div className="walk-thumbnail">{walk.title}</div>
+         return this.state.walks.map(walk => {
+            <div className="walk-thumbnail">{walk.title}
+                        
+                     </div>
          })
-         return walkDivs
         } else {
             return null
         }
-        debugger
+            
     }
 
     render() {
         return (
             <div className="home-page-window" >
-                <div id="previous-walk-container">
-                    <header>Previous Walks</header>
-                    <div className="walk-thumbnails-container">
-                        {this.renderWalks()}
-                    </div>
-                </div>
+                <div id="previous_walk_container">
+                    {this.renderWalks()}
+                    Previous Walks</div>
             </div>
         )
     }

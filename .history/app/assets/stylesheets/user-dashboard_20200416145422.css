@@ -1,0 +1,10 @@
+#previous-walk-container {
+    display: flex;
+    
+}
+
+.walk-thumbnail{
+    height: 100px;
+    width: 100px;
+    background: green;
+}
