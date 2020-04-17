@@ -3,6 +3,7 @@
 import React from "react";
 import Splashpage from './splash/splashpage.jsx'
 import Header from './header/header.jsx'
+import Footer from './footer/footer.jsx'
 import { Route, Switch } from "react-router-dom"
 
 import LoginFormContainer from "./session_form/login_form_container"
@@ -25,6 +26,7 @@ const App = () => (
             <ProtectedRoute exact path="/walks" component={WalksHome} />
             <ProtectedRoute exact path="/walks/create" component={CreateContainer} />
         </Switch>
+        <Footer />
     </div>
 )
 

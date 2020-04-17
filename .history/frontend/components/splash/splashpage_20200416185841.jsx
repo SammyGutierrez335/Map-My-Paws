@@ -3,6 +3,7 @@ import { render } from "react-dom"
 import {Link} from "react-router-dom"
 import React from 'react'
 
+
 class Splashpage extends React.Component {
 
 
@@ -40,7 +41,6 @@ class Splashpage extends React.Component {
                     </div>
                 </div>
             </div>
-                <Footer />
                 </div>
         )
     }

@@ -2,6 +2,7 @@
 import { render } from "react-dom"
 import {Link} from "react-router-dom"
 import React from 'react'
+import Footer from "../footer/footer"
 
 class Splashpage extends React.Component {
 
