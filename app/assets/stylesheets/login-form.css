@@ -92,8 +92,11 @@ color: white;
 }
 
 #demo-user:hover {
-    
     cursor: pointer;
+}
+
+.login-signup{
+    margin-top: 15px;
 }
 
 .login-signup a {

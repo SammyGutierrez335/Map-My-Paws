@@ -8,11 +8,13 @@
 }
 
 .nav-links {
+  font-family: Courgette, serif;  
   width: 300px;
-    padding: 6px 30px;
-    border-radius: 5px;
-    display: flex;
-    justify-content: space-between;
+  padding: 5px;
+  margin-top: 5px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: space-between;
 }
 
 .nav-links a {
