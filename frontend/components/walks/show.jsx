@@ -1,4 +1,5 @@
 import React from 'react'
+import {connect} from 'react-redux'
 class WalkShow extends React.Component {
     constructor(props) {
         super(props);
@@ -8,7 +9,7 @@ class WalkShow extends React.Component {
             walkName: "",
             routeDetailsToggled: false,
             routeDirectionsToggled: false,
-            walkId: null
+            walk: null
         }
         this.markers = []
         this.useCurrentPosition = this.useCurrentPosition.bind(this)
@@ -34,11 +35,13 @@ class WalkShow extends React.Component {
         //default coordinates for united states
         let currentPosition = { lat: 37.0902, lng: -95.7129 }
         const options = {
-            center: { lat: 37.0902, lng: -95.7129 },
+            center: currentPosition,
             zoom: 4,
         }
         const map = document.getElementById("map")
-        this.setState({ currentPosition, walk: this.props.fetchWalk()})
+        this.props.fetchWalk(this.props.walkId).then(walk => {
+            this.setState({ walk })
+        })
         //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
         this.registerListeners();
@@ -129,9 +132,10 @@ class WalkShow extends React.Component {
     setCurrentPosition(GeolocationPostition) {
         //adjustments for increased accuracy
         let currentPosition = { lat: (GeolocationPostition.coords.latitude + .00175916), lng: (GeolocationPostition.coords.longitude + .0046663752) }
-        this.setState({ currentPosition })
-        this.map.setCenter(this.state.currentPosition)
-        this.map.setZoom(16)
+        this.setState({ currentPosition }, () => {
+            this.map.setCenter(this.state.currentPosition)
+            this.map.setZoom(16)
+        })
     }
 
 
@@ -236,7 +240,6 @@ class WalkShow extends React.Component {
     }
 
     render() {
-        debugger
         return (
             <div className="mapcontainer" >
                 <div id="info-panels">

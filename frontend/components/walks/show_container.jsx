@@ -1,13 +1,24 @@
 import { connect } from 'react-redux'
 import { fetchWalk } from "../../actions/walk_actions"
 import Show from "./show.jsx"
-const mSTP = state => {
+const mSTP = (state, ownProps) => {
+    debugger
+    let walk;
+    let walkId = ownProps.match.params.id;
+
+    if (state.entities.walks[walkId]) {
+        walk = state.entities.walks[walkId];
+    }
+
     return {
-        // walk: state.entities.walk
+        walk, 
+        walkId
     };
 };
 const mDTP = dispatch => ({
-    fetchWalk: () => dispatch(fetchWalk())
+    fetchWalk: (walkId) => dispatch(fetchWalk(walkId))
 })
-//takes walk component and connects it to mDTP
+
+
+//dispatch is built in redux function provided by connect
 export default connect(mSTP, mDTP)(Show)

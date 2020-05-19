@@ -26,11 +26,9 @@ class Homepage extends React.Component {
             }  
             let walkDivs = this.state.walks.map(walk => {
                 // if(walk.waypoints) {
-                    return <Link to={`/walks/${walk.id}`} className="walk-thumbnail">
-                        <a>
+                    return <Link key={walk.id} to={`/walks/${walk.id}`} className="walk-thumbnail">
                             <img src={window.defaultThumbnail} width="138" height="135"></img>
                             <div className="walk-info">{walk.title}</div>
-                        </a>
                     </Link>
                 // }
                 // return null

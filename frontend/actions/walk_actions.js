@@ -26,9 +26,9 @@ export const fetchWalks = () => dispatch => (
     ))
 )
 
-export const fetchWalk = () => dispatch => (
-    APIUtil.fetchWalk().then(walk => (
-        dispatch(recieveWalk(walk))
+export const fetchWalk = (walkId) => dispatch => (
+    APIUtil.fetchWalk(walkId).then(walk => (
+        dispatch(receiveWalk(walk))
     ))
 )
 

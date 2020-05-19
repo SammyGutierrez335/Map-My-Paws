@@ -14,9 +14,9 @@ export const fetchWalks = (authorId) => {
     })
 }
 
-export const fetchWalk = () => {
+export const fetchWalk = (walkId) => {
     return $.ajax({
-        url: '/api/walks/:id',
+        url: `/api/walks/${walkId}`,
         method: 'GET'
     })
 }
