@@ -235,7 +235,6 @@ export default class Walk extends React.Component {
 
 
     saveWalk() {
-        debugger
         this.state.waypoints.forEach(waypoint => {
             this.props.createWaypoint({walk_id: localStorage.getItem("walkId"), latitude: waypoint[0], longitude: waypoint[1]})
         }).then(this.props.updateWalk({ walk_id: localStorage.getItem("walkId"), title: this.state.walkName}))

@@ -19,7 +19,7 @@ class Splashpage extends React.Component {
                 <p className="splash-subtitle"> 
                 <span>
                     A new fitness community of pet parents with the goal
-                    of leading healthier,happier lives for their pets.
+                    of leading healthier happier lives for their pets.
                     </span>
                 </p>
                 <div className="splash-session-links">
