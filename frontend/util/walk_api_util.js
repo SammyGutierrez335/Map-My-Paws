@@ -14,6 +14,13 @@ export const fetchWalks = (authorId) => {
     })
 }
 
+export const fetchWalk = () => {
+    return $.ajax({
+        url: '/api/walks/:id',
+        method: 'GET'
+    })
+}
+
 export const updateWalk = (walkInfo) => {
     return $.ajax({
         url: `/api/walks/${walkInfo.id}/edit`,

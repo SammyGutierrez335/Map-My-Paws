@@ -12,8 +12,6 @@ class WalksHome extends React.Component {
             </div>
         )
     }
-
-
 }
 
 export default WalksHome

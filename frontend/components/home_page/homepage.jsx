@@ -23,8 +23,7 @@ class Homepage extends React.Component {
                     <hr className="accent"></hr>
                     <img src={window.noWalks}></img>
                      </h2>
-            }
-            debugger
+            }  
             let walkDivs = this.state.walks.map(walk => {
                 // if(walk.waypoints) {
                     return <Link to={`/walks/${walk.id}`} className="walk-thumbnail">
