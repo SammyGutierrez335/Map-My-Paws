@@ -31,22 +31,27 @@ class WalkShow extends React.Component {
         });
     }
 
+    componentWillMount() {
+        this.props.fetchWalk(this.props.walkId).then(walk => {
+            this.setState({ walk })
+        })
+    }
+
     componentDidMount() {
         //default coordinates for united states
         let currentPosition = { lat: 37.0902, lng: -95.7129 }
+        
         const options = {
             center: currentPosition,
             zoom: 4,
         }
+
         const map = document.getElementById("map")
-        this.props.fetchWalk(this.props.walkId).then(walk => {
-            this.setState({ walk })
-        })
+       
         //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
         this.registerListeners();
     }
-
 
     registerListeners() {
         //left clicking adds waypoint
@@ -88,7 +93,6 @@ class WalkShow extends React.Component {
 
         //adds marker to an array stored in state
         this.markers.push(marker)
-
 
         // code will allow user to click on a marker to end walk
         google.maps.event.addListener(marker, 'click', this.saveWalk)
@@ -156,7 +160,7 @@ class WalkShow extends React.Component {
 
     getDirections() {
         const renderer = this.renderer
-        let waypoints = this.state.waypoints;
+        let waypoints = this.props.fetchWaypoints
 
         renderer.setMap(this.map)
         renderer.setPanel(document.getElementById('directionsPanel'))

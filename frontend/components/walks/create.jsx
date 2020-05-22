@@ -37,16 +37,19 @@ export default class Walk extends React.Component {
 
     componentDidMount() {
         //default coordinates for united states
-        let currentPosition = { lat: 37.0902, lng: -95.7129 }
+        let defaultPosition = { lat: 37.0902, lng: -95.7129 }
+        
         const options = {
-            center: { lat: 37.0902, lng: -95.7129 },
+            center: defaultPosition,
             zoom: 4,
         }
+        
         const map = document.getElementById("map")
-        this.setState({ currentPosition})
+        
         //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
         this.registerListeners();
+        this.setState({ currentPosition: defaultPosition})
     }
 
 
@@ -55,7 +58,7 @@ export default class Walk extends React.Component {
         google.maps.event.addListener(this.map, 'click', (event) => {
             let lat = event.latLng.lat()
             let lng = event.latLng.lng()
-            this.handleLeftClick([lat, lng]);
+            this.handleLeftClick(lat, lng);
         });
 
         //removes waypoint on rightclick
@@ -65,13 +68,13 @@ export default class Walk extends React.Component {
 
     }
 
-    handleLeftClick(coords) {
-        this.setState({ waypoints: [...this.state.waypoints, coords] }) //setstate, waypoint slice of state is merged with new coords(waypoint).
+    handleLeftClick(lat, lng) {
+        this.setState({ waypoints: [...this.state.waypoints, [lat, lng]] }) //setstate, waypoint slice of state is merged with new coords(waypoint).
         let marker
-        let position = { lat: coords[0], lng: coords[1] }
-
+        let position = { lat, lng }
+        
+        //defaults first paw marker to green
         if (typeof this.state.waypoints[1] === 'undefined') {
-            //defaults first paw marker to green
             marker = new google.maps.Marker({
                 position: position,
                 map: this.map,
@@ -81,7 +84,7 @@ export default class Walk extends React.Component {
         } else {
             //all other paw markers are blue
             marker = new google.maps.Marker({
-                position: { lat: coords[0], lng: coords[1] },
+                position: { lat, lng},
                 map: this.map,
                 icon: window.pawIconBlue,
                 draggable: false,

@@ -1,7 +1,12 @@
 class Api::WaypointsController < ApplicationController
 
-   def create
+  def index
+    @waypoints = Waypoint.where(author_id: current_user().id)
+  end
+
+  def create
     @waypoint = Waypoint.new(waypoint_params)
+    
     if @waypoint.save
         render :show
     else

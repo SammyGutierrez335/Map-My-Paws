@@ -19,8 +19,8 @@ export const createWaypoint = (waypoint) => dispatch => (
     ))
 );
 
-// export const fetchWaypoints = (walkId) => dispatch => (
-//     APIUtil.fetchWaypoints(walkId).then(waypoints => (
-//         dispatch(receiveWaypoints(waypoints))
-//     ))
-// )
+export const fetchWaypoints = (walkId) => dispatch => (
+    APIUtil.fetchWaypoints(walkId).then(waypoints => (
+        dispatch(receiveWaypoints(waypoints))
+    ))
+)

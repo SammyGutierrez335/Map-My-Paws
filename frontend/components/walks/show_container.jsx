@@ -1,8 +1,8 @@
 import { connect } from 'react-redux'
 import { fetchWalk } from "../../actions/walk_actions"
+import { fetchWaypoints } from "../../actions/waypoint_actions"
 import Show from "./show.jsx"
 const mSTP = (state, ownProps) => {
-    debugger
     let walk;
     let walkId = ownProps.match.params.id;
 
@@ -16,7 +16,8 @@ const mSTP = (state, ownProps) => {
     };
 };
 const mDTP = dispatch => ({
-    fetchWalk: (walkId) => dispatch(fetchWalk(walkId))
+    fetchWalk: (walkId) => dispatch(fetchWalk(walkId)),
+    fetchWaypoints: (walkId) => dispatch(fetchWaypoints(walkId))
 })
 
 
