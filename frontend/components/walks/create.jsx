@@ -48,6 +48,8 @@ export default class Walk extends React.Component {
         
         //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
+        this.renderer.setMap(this.map)
+        this.renderer.setPanel(document.getElementById('directionsPanel'))
         this.registerListeners();
         this.setState({ currentPosition: defaultPosition})
     }
@@ -102,6 +104,42 @@ export default class Walk extends React.Component {
         this.getDirections()
     }
 
+
+    getDirections() {
+        const renderer = this.renderer
+        let waypoints = this.state.waypoints;
+
+        if (waypoints.length > 1) {
+            let origin = { lat: waypoints[0][0], lng: waypoints[0][1] };
+            let lastWaypoint = waypoints[waypoints.length - 1]
+            let destination = { lat: lastWaypoint[0], lng: lastWaypoint[1] };
+            let middlePointsArr = []
+
+            //iterates through middle waypoints and stores into middlePointsarr
+            for (let i = 1; i < waypoints.length - 1; i++) {
+                middlePointsArr.push({
+                    location: { lat: waypoints[i][0], lng: waypoints[i][1] },
+                    stopover: false
+                })
+            }
+
+            this.direction.route({
+                origin,
+                destination,
+                travelMode: "WALKING",
+                waypoints: middlePointsArr,
+                optimizeWaypoints: false,
+                provideRouteAlternatives: false,
+            }, function (result, status) {
+                if (status === 'OK') {
+                    renderer.setDirections(result)
+                }
+            })
+        } else {
+            renderer.setMap(null)
+        }
+    }
+
     handleRightClick(index) {
         //removes last waypoint from state
         this.setState(state => {
@@ -119,11 +157,12 @@ export default class Walk extends React.Component {
 
 
 
-    //grabs the location coordinates of the device
+    //grabs the location coordinates of the computer/device
     useCurrentPosition() {
         let options = {
             enableHighAccuracy: true
         }
+        
         function error(err) {
             alert(`It seems that you have not allowed us 
             permission to use your location. 
@@ -158,43 +197,7 @@ export default class Walk extends React.Component {
     }
 
 
-    getDirections() {
-        const renderer = this.renderer
-        let waypoints = this.state.waypoints;
-        
-        renderer.setMap(this.map)
-        renderer.setPanel(document.getElementById('directionsPanel'))
-        
-        if (waypoints.length > 1) {
-            let origin = { lat: waypoints[0][0], lng: waypoints[0][1] };
-            let lastWaypoint = waypoints[waypoints.length - 1]
-            let destination = { lat: lastWaypoint[0], lng: lastWaypoint[1] };
-            let middlePointsArr = []
 
-            //iterates through middle waypoints and stores into middlePointsarr
-            for (let i = 1; i < waypoints.length - 1; i++) {
-                middlePointsArr.push({
-                    location: { lat: waypoints[i][0], lng: waypoints[i][1] },
-                    stopover: false
-                })
-            }
-
-            this.direction.route({
-                origin: origin,
-                destination: destination,
-                travelMode: "WALKING",
-                waypoints: middlePointsArr,
-                optimizeWaypoints: false,
-                provideRouteAlternatives: false,
-            }, function (result, status) {
-                if (status === 'OK') {
-                    renderer.setDirections(result)
-                }
-            })
-        } else {
-            renderer.setMap(null)
-        }
-    }
 
     renderRouteDetails(){
         if(this.state.routeDetailsToggled) {
@@ -212,6 +215,13 @@ export default class Walk extends React.Component {
         } else {
             return <div></div>
         }
+    }
+
+    saveWalk() {
+        this.state.waypoints.forEach(waypoint => {
+            this.props.createWaypoint({ walk_id: localStorage.getItem("walkId"), latitude: waypoint[0], longitude: waypoint[1] })
+        }).then(this.props.updateWalk({ walk_id: localStorage.getItem("walkId"), title: this.state.walkName }))
+        // then(() => { this.props.history.push(`/walks/${this.state.walkId}`) })
     }
 
     renderRouteDirections(){
@@ -237,11 +247,6 @@ export default class Walk extends React.Component {
     }
 
 
-    saveWalk() {
-        this.state.waypoints.forEach(waypoint => {
-            this.props.createWaypoint({walk_id: localStorage.getItem("walkId"), latitude: waypoint[0], longitude: waypoint[1]})
-        }).then(this.props.updateWalk({ walk_id: localStorage.getItem("walkId"), title: this.state.walkName}))
-    }
     
     render() {
         console.log(localStorage.getItem("walkId"))
