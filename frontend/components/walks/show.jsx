@@ -7,8 +7,8 @@ class WalkShow extends React.Component {
             waypoints: [],
             searchLocation: "",
             walkName: "",
-            routeDetailsToggled: false,
-            routeDirectionsToggled: false,
+            routeDetailsToggled: true,
+            routeDirectionsToggled: true,
             walk: null
         }
         this.markers = []
@@ -32,8 +32,8 @@ class WalkShow extends React.Component {
     }
 
     componentWillMount() {
-        this.props.fetchWalk(this.props.walkId).then(walk => {
-            this.setState({ walk })
+        this.props.fetchWalk(this.props.walkId).then(() => {
+            this.setState({ walk: this.props.walk })
         })
     }
 
@@ -198,11 +198,12 @@ class WalkShow extends React.Component {
 
     renderRouteDetails() {
         if (this.state.routeDetailsToggled) {
+            debugger
             return <div id="map-details-input">
-                <label htmlFor="map-name">Name Your Walk</label>
+                <label htmlFor="map-name">Walk Title</label>
                 <div>
                     <input type="text" id="walk-name-input-field"
-                        placeholder="Name Your Walk"
+                        placeholder=""
                         value={this.state.walkName}
                         onChange={this.update('walkName')}
                         autoComplete="complete?" />

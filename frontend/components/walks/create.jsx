@@ -3,6 +3,7 @@
 import { render } from "react-dom"
 import React from 'react'
 import { Link } from 'react-router-dom'
+import regeneratorRuntime from "regenerator-runtime";
 
 export default class Walk extends React.Component {
     constructor(props) {
@@ -48,8 +49,6 @@ export default class Walk extends React.Component {
         
         //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
-        this.renderer.setMap(this.map)
-        this.renderer.setPanel(document.getElementById('directionsPanel'))
         this.registerListeners();
         this.setState({ currentPosition: defaultPosition})
     }
@@ -106,9 +105,10 @@ export default class Walk extends React.Component {
 
 
     getDirections() {
-        const renderer = this.renderer
-        let waypoints = this.state.waypoints;
-
+      const renderer = this.renderer
+      let waypoints = this.state.waypoints;
+      renderer.setMap(this.map)
+      renderer.setPanel(document.getElementById('directionsPanel'))
         if (waypoints.length > 1) {
             let origin = { lat: waypoints[0][0], lng: waypoints[0][1] };
             let lastWaypoint = waypoints[waypoints.length - 1]
@@ -217,11 +217,12 @@ export default class Walk extends React.Component {
         }
     }
 
-    saveWalk() {
-        this.state.waypoints.forEach(waypoint => {
-            this.props.createWaypoint({ walk_id: localStorage.getItem("walkId"), latitude: waypoint[0], longitude: waypoint[1] })
-        }).then(this.props.updateWalk({ walk_id: localStorage.getItem("walkId"), title: this.state.walkName }))
-        // then(() => { this.props.history.push(`/walks/${this.state.walkId}`) })
+    async saveWalk() {
+        this.state.waypoints.forEach(async waypoint => {
+            await this.props.createWaypoint({ walk_id: localStorage.getItem("walkId"), latitude: waypoint[0], longitude: waypoint[1] })
+        })
+        await this.props.updateWalk({ walk_id: localStorage.getItem("walkId"), title: this.state.walkName })
+        this.props.history.push(`/walks/${localStorage.getItem("walkId")}`)
     }
 
     renderRouteDirections(){
