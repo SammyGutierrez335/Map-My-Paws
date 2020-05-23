@@ -4,22 +4,12 @@ class WalkShow extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            waypoints: [],
-            searchLocation: "",
-            walkName: "",
-            routeDetailsToggled: true,
-            routeDirectionsToggled: true,
             walk: null
         }
+        
         this.markers = []
-        this.useCurrentPosition = this.useCurrentPosition.bind(this)
-        this.setCurrentPosition = this.setCurrentPosition.bind(this)
-        this.renderRouteDetails = this.renderRouteDetails.bind(this)
-        this.toggleRouteDetails = this.toggleRouteDetails.bind(this)
-        this.renderRouteDirections = this.renderRouteDirections.bind(this)
-        this.toggleRouteDirections = this.toggleRouteDirections.bind(this)
-        this.saveWalk = this.saveWalk.bind(this)
         this.direction = new google.maps.DirectionsService();
+        
         this.renderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
             polylineOptions: {
@@ -31,14 +21,9 @@ class WalkShow extends React.Component {
         });
     }
 
-    componentWillMount() {
-        this.props.fetchWalk(this.props.walkId).then(() => {
-            this.setState({ walk: this.props.walk })
-        })
-    }
-
     componentDidMount() {
         //default coordinates for united states
+        let waypoints = this.props.fetchWaypoints(this.props.match.params.id)
         let currentPosition = { lat: 37.0902, lng: -95.7129 }
         
         const options = {
@@ -50,88 +35,13 @@ class WalkShow extends React.Component {
        
         //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
-        this.registerListeners();
-    }
 
-    registerListeners() {
-        //left clicking adds waypoint
-        google.maps.event.addListener(this.map, 'click', (event) => {
-            let lat = event.latLng.lat()
-            let lng = event.latLng.lng()
-            this.handleLeftClick([lat, lng]);
-        });
-
-        //removes waypoint on rightclick
-        google.maps.event.addListener(this.map, 'rightclick', (event) => {
-            this.handleRightClick(this.state.waypoints.length - 1);
-        });
-
-    }
-
-    handleLeftClick(coords) {
-        this.setState({ waypoints: [...this.state.waypoints, coords] }) //setstate, waypoint slice of state is merged with new coords(waypoint).
-        let marker
-        let position = { lat: coords[0], lng: coords[1] }
-
-        if (typeof this.state.waypoints[1] === 'undefined') {
-            //defaults first paw marker to green
-            marker = new google.maps.Marker({
-                position: position,
-                map: this.map,
-                icon: window.pawIconGreen,
-                clickable: true
-            })
-        } else {
-            //all other paw markers are blue
-            marker = new google.maps.Marker({
-                position: { lat: coords[0], lng: coords[1] },
-                map: this.map,
-                icon: window.pawIconBlue,
-                draggable: false,
-            })
-        }
-
-        //adds marker to an array stored in state
-        this.markers.push(marker)
-
-        // code will allow user to click on a marker to end walk
-        google.maps.event.addListener(marker, 'click', this.saveWalk)
-
-        //get the directions to display in the info panels
-        this.getDirections()
-    }
-
-    handleRightClick(index) {
-        //removes last waypoint from state
-        this.setState(state => {
-            const waypoints = state.waypoints.filter((waypoint, j) => index !== j)
-            return {
-                waypoints
-            }
+        this.props.fetchWalk(this.props.walkId).then(() => {
+            this.setState({ 
+                walk: this.props.walk,
+                waypoints })
         })
-        //removes last marker
-        this.markers.pop().setMap(null);
-
-        //get the directions to display in the info panels
-        this.getDirections()
     }
-
-
-
-    //grabs the location coordinates of the device
-    useCurrentPosition() {
-        let options = {
-            enableHighAccuracy: true
-        }
-        function error(err) {
-            alert(`It seems that you have not allowed us 
-            permission to use your location. 
-            Please enable your location to utilize this feature.`);
-        }
-        navigator.geolocation.getCurrentPosition(this.setCurrentPosition, error, options)
-    }
-
-
 
     setCurrentPosition(GeolocationPostition) {
         //adjustments for increased accuracy
@@ -197,51 +107,14 @@ class WalkShow extends React.Component {
     }
 
     renderRouteDetails() {
-        if (this.state.routeDetailsToggled) {
-            debugger
             return <div id="map-details-input">
                 <label htmlFor="map-name">Walk Title</label>
-                <div>
-                    <input type="text" id="walk-name-input-field"
-                        placeholder=""
-                        value={this.state.walkName}
-                        onChange={this.update('walkName')}
-                        autoComplete="complete?" />
-                </div>
-                <button onClick={this.saveWalk} className="search-button">Save Walk</button>
+                <h2>{this.state.walkName}</h2>
             </div>
-        } else {
-            return <div></div>
-        }
     }
 
     renderRouteDirections() {
         return this.state.routeDirectionsToggled ? <div id="directionsPanel"></div> : null
-    }
-
-    update(field) {
-        return e => this.setState({
-            [field]: e.currentTarget.value
-        });
-    }
-
-    toggleRouteDetails() {
-        return this.setState({
-            routeDetailsToggled: !this.state.routeDetailsToggled
-        })
-    }
-
-    toggleRouteDirections() {
-        return this.setState({
-            routeDirectionsToggled: !this.state.routeDirectionsToggled
-        })
-    }
-
-
-    saveWalk() {
-        this.state.waypoints.forEach(waypoint => {
-            this.props.createWaypoint({ walk_id: localStorage.getItem("walkId"), latitude: waypoint[0], longitude: waypoint[1] })
-        }).then(this.props.updateWalk({ walk_id: localStorage.getItem("walkId"), title: this.state.walkName }))
     }
 
     render() {
@@ -250,29 +123,10 @@ class WalkShow extends React.Component {
                 <div id="info-panels">
                     <div id="map-location-input">
                         <label htmlFor="location-input-box">Choose Map Location</label>
-                        <div id="location-input-container">
-                            <input type="text" id="location-input-field"
-                                placeholder="Address or Zip Code"
-                                value={this.state.searchLocation}
-                                onChange={this.update('searchLocation')}
-                                autoComplete="off" />
-                            <a className="location-icon" title="Use My Current Location">
-                                {/* icon to set map to current location*/}
-                                <img src={window.locationIcon} onClick={this.useCurrentPosition}></img>
-                            </a>
-                        </div>
                         <button className="search-button" onClick={this.setMapLocation.bind(this)}>Search</button>
                         <br />
                     </div>
-                    <h3 onClick={this.toggleRouteDetails}>
-                        {this.state.routeDetailsToggled ? <i className="fas fa-caret-down expand-button"></i> : <i className="fas fa-caret-right expand-button"></i>}
-                        Route Details
-                    </h3>
                     {this.renderRouteDetails()}
-                    <h3 onClick={this.toggleRouteDirections}>
-                        {this.state.routeDirectionsToggled ? <i className="fas fa-caret-down expand-button" ></i> : <i className="fas fa-caret-right expand-button"></i>}
-                        Route Directions
-                    </h3>
                     {this.renderRouteDirections()}
                 </div>
                 <div id="map"></div>

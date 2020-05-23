@@ -9,6 +9,7 @@ export const createWaypoint = (waypoint) => {
 export const fetchWaypoints = (walkId) => {
     return $.ajax({
         url: '/api/waypoints',
-        method: 'GET'
+        method: 'GET',
+        data: {walkId}
     })
 }

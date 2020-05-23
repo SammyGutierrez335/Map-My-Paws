@@ -1,7 +1,7 @@
 class Api::WaypointsController < ApplicationController
 
   def index
-    @waypoints = Waypoint.where(author_id: current_user().id)
+    @waypoints = Waypoint.where(walk_id: params[walk_id])
   end
 
   def create

@@ -15,6 +15,7 @@ const mSTP = (state, ownProps) => {
         walkId
     };
 };
+
 const mDTP = dispatch => ({
     fetchWalk: (walkId) => dispatch(fetchWalk(walkId)),
     fetchWaypoints: (walkId) => dispatch(fetchWaypoints(walkId))
