@@ -13,6 +13,7 @@ import HomepageContainer from './home_page/homepage_container.js'
 
 import WalksHome from './walks/home.jsx'
 import CreateContainer from './walks/create_container.js'
+import WalkShowContainer from './walks/show_container'
 
 const App = () => (
     <div className="main">
@@ -24,6 +25,7 @@ const App = () => (
             <ProtectedRoute exact path="/user_dashboard" component={HomepageContainer} />
             <ProtectedRoute exact path="/walks" component={WalksHome} />
             <ProtectedRoute exact path="/walks/create" component={CreateContainer} />
+            <ProtectedRoute path="/walks/:id" component={WalkShowContainer} />
         </Switch>
     </div>
 )

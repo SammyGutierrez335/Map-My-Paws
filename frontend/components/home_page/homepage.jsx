@@ -1,7 +1,7 @@
 //home page that logged in users can see
 
 import React from 'react'
-
+import { Link } from 'react-router-dom'
 class Homepage extends React.Component {
     constructor(props) {
         super(props);
@@ -23,17 +23,13 @@ class Homepage extends React.Component {
                     <hr className="accent"></hr>
                     <img src={window.noWalks}></img>
                      </h2>
-            }
-
+            }  
             let walkDivs = this.state.walks.map(walk => {
-                debugger
                 // if(walk.waypoints) {
-                    return <div className="walk-thumbnail">
-                        <a>
+                    return <Link key={walk.id} to={`/walks/${walk.id}`} className="walk-thumbnail">
                             <img src={window.defaultThumbnail} width="138" height="135"></img>
                             <div className="walk-info">{walk.title}</div>
-                        </a>
-                    </div>
+                    </Link>
                 // }
                 // return null
             })
