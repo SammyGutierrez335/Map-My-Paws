@@ -6,10 +6,8 @@ class WalkShow extends React.Component {
         this.state = {
             walk: null
         }
-        
-        this.markers = []
+        this.getDirections = this.getDirections.bind(this)
         this.direction = new google.maps.DirectionsService();
-        
         this.renderer = new google.maps.DirectionsRenderer({
             suppressMarkers: true,
             polylineOptions: {
@@ -23,7 +21,6 @@ class WalkShow extends React.Component {
 
     componentDidMount() {
         //default coordinates for united states
-        let waypoints = this.props.fetchWaypoints(this.props.match.params.id)
         let currentPosition = { lat: 37.0902, lng: -95.7129 }
         
         const options = {
@@ -36,11 +33,12 @@ class WalkShow extends React.Component {
         //access this particular instance of the Map class
         this.map = new google.maps.Map(map, options)
 
+
         this.props.fetchWalk(this.props.walkId).then(() => {
             this.setState({ 
                 walk: this.props.walk,
-                waypoints })
-        })
+                })
+        }).then(this.getDirections)
     }
 
     setCurrentPosition(GeolocationPostition) {
@@ -70,8 +68,9 @@ class WalkShow extends React.Component {
 
     getDirections() {
         const renderer = this.renderer
-        let waypoints = this.props.fetchWaypoints
-
+        debugger
+        let waypoints = this.props.fetchWaypoints(this.props.match.params.id)()
+        debugger
         renderer.setMap(this.map)
         renderer.setPanel(document.getElementById('directionsPanel'))
 
@@ -106,28 +105,15 @@ class WalkShow extends React.Component {
         }
     }
 
-    renderRouteDetails() {
-            return <div id="map-details-input">
-                <label htmlFor="map-name">Walk Title</label>
-                <h2>{this.state.walkName}</h2>
-            </div>
-    }
-
-    renderRouteDirections() {
-        return this.state.routeDirectionsToggled ? <div id="directionsPanel"></div> : null
-    }
-
     render() {
         return (
             <div className="mapcontainer" >
                 <div id="info-panels">
-                    <div id="map-location-input">
-                        <label htmlFor="location-input-box">Choose Map Location</label>
-                        <button className="search-button" onClick={this.setMapLocation.bind(this)}>Search</button>
-                        <br />
+                    <div id="map-details-input">
+                        <h2>{this.state.walkName}</h2>
                     </div>
-                    {this.renderRouteDetails()}
-                    {this.renderRouteDirections()}
+                    <div id="directionsPanel"></div>
+                    {this.getDirections()}
                 </div>
                 <div id="map"></div>
             </div>
