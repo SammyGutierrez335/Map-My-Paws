@@ -68,8 +68,7 @@ class WalkShow extends React.Component {
 
     getDirections() {
         const renderer = this.renderer
-        debugger
-        let waypoints = this.props.fetchWaypoints(this.props.match.params.id)()
+        let waypoints = this.props.fetchWaypoints(this.props.match.params.id)
         debugger
         renderer.setMap(this.map)
         renderer.setPanel(document.getElementById('directionsPanel'))
